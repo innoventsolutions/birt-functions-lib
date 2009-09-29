@@ -42,5 +42,17 @@ chart series.  Given a CSS like this
 }
 }}}
 
-Would give a report that looks like this.
+Would give a report that looks like this.  As you can see, I have used the same CSS styles in my table which follows the chart.
 http://birt-functions-lib.googlecode.com/svn/wiki/functions.attach/Chart.png
+
+If your series names do not match series-1, series-2...  Simply add CSS styles that match your series name. 
+So if your series is named fud, then add the following entry to your CSS.
+{{{
+.fud {
+	background-color: rgb(240,230,194);
+	background-image: url("blackboard.common/resources/image/series-8.gif");
+}
+}}}
+http://birt-functions-lib.googlecode.com/svn/wiki/functions.attach/fud.png
+Which will give the following output.
+http://birt-functions-lib.googlecode.com/svn/wiki/functions.attach/fud_chart.png
