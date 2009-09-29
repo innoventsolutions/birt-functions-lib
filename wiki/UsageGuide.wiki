@@ -5,7 +5,7 @@ There are two types of extensions in this project, Aggregates and Script Functio
 <tr>
 <td valign="top" width="50%">
 == Aggregates ==
-Aggregate functions are performed across a number of rows.  Aggregate extensions show up in the Aggregate Editor and fully support all of the grouping and filtering options that the standard aggregates support.
+Aggregate functions are performed across a collection of rows.  Aggregate extensions show up in the Aggregate Builder and behave like the built-in BIRT Aggregates (e.g. Count, Sum..._)  Custom aggregates support all of the grouping and filtering options that the standard aggregates support.
 === ConcatenateUnique ===
 === CountUnique ===
 </td>
