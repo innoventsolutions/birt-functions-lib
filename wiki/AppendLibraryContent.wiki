@@ -6,7 +6,7 @@ The down-side to the drag and drop mechanism is that once an item is in a report
 !ReportItem can be over-written by other developers.  If this happens the inheritance from the library may be compromised.
 
 Using this technique, report developers can quickly add boiler plate disclaimers to the end of any report.  This script function
-should be called in the !BeforeFactory or !OnPrepare method of the report.
+should be called in the !BeforeFactory or !OnPrepare method of the report.  An example of the function call is shown below:
 
 {{{
    CustomFunctions.AppendLibraryContent("stdDisclaimer", reportContext);
