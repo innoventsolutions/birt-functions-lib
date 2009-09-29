@@ -1,3 +1,4 @@
+#labels Featured
 = Organization =
 There are two types of extensions in this project, Aggregates and Script Functions.  
 
@@ -19,4 +20,3 @@ All of the functions for this project are placed under a CustomFunctions categor
 === TextWrap ===
 === ThrowException ===
 
-#labels Featured
