@@ -11,7 +11,7 @@ Aggregate functions are performed across a number of rows.  Aggregate extensions
 </td>
 <td width="50%">http://birt-functions-lib.googlecode.com/svn/wiki/functions.attach/AggregationBuilder.png</td>
 </tr><tr>
-<tr height="20px"><td>&nbsp;</td></tr>
+<tr height="20px"><td></td></tr>
 <td valign="top" width="50%">
 == Script Functions ==
 Script functions show up in the report designer in any of the locations where BIRT supports code assist.  
