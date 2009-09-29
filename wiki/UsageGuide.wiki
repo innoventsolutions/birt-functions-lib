@@ -1,9 +1,6 @@
-#sidebar sidebar
-#Featured
 = Organization =
 There are two types of extensions in this project, Aggregates and Script Functions.  
 
-<!--
 == Aggregates ==
 Aggregate functions are performed across a number of rows.  Aggregate extensions show up in the Aggregate Editor and fully support all of the grouping and filtering options that the standard aggregates support.
 === ConcatenateUnique ===
@@ -21,4 +18,3 @@ All of the functions for this project are placed under a CustomFunctions categor
 === SetChartPalette ===
 === TextWrap ===
 === ThrowException ===
--->
