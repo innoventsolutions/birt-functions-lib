@@ -1,0 +1,25 @@
+#summary UsageGuide to the BIRT Script Library Project.
+#sidebar sidebar
+#Featured
+= Organization =
+There are two types of extensions in this project, Aggregates and Script Functions.  
+
+<!--
+== Aggregates ==
+Aggregate functions are performed across a number of rows.  Aggregate extensions show up in the Aggregate Editor and fully support all of the grouping and filtering options that the standard aggregates support.
+=== ConcatenateUnique ===
+=== CountUnique ===
+
+== Script Functions ==
+Script functions show up in the report designer in a number of places.  On the Script tab, when you look in the palette view, you will find any Script extensions showing up on the Palette view, in the BIRT Functions area.  
+
+All of the functions for this project are placed under a CustomFunctions category.  
+
+=== AppendLibraryContent ===
+=== BindParameters ===
+=== BirtLogger ===
+=== DisplayParameters ===
+=== SetChartPalette ===
+=== TextWrap ===
+=== ThrowException ===
+-->
