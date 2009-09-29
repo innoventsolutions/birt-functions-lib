@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.birt.data.aggregation">
+      <Aggregations>
+         <AggregationFactory
+               class="innovent.birt.aggregations.factory.InnoventAggregateFactory">
+         </AggregationFactory>
+      </Aggregations>
+   </extension>
+   <extension
+         point="org.eclipse.birt.core.ScriptFunctionService">
+      <Category
+            desc="A list of custom functions for BIRT reports"
+            factoryclass="innovent.birt.functions.factory.InnoventFunctionFactory"
+            name="CustomFunctions">
+         <Function
+               desc="Adds a ReportItem from the library to the end of the report."
+               isStatic="true"
+               name="AppendLibraryContent"
+               variableArguments="false">
+            <DataType
+                  value="String">
+            </DataType>
+            <Argument
+                  desc="Name of item in library"
+                  isOptional="false"
+                  name="reportItemName">
+            </Argument>
+            <Argument
+                  desc="The reportContext of the current report"
+                  isOptional="false"
+                  name="reportContext">
+            </Argument>
+         </Function>
+         <Function
+               desc="Binds SQL parameters to Report Parameters"
+               isConstructor="false"
+               isStatic="true"
+               name="BindParameters"
+               variableArguments="false">
+            <DataType
+                  value="String">
+            </DataType>
+            <Argument
+                  desc="The Report Context"
+                  isOptional="false"
+                  name="reportContext">
+            </Argument>
+         </Function>
+                  <Function
+               desc="Interface to commons.logging from Script"
+               isStatic="true"
+               name="BirtLogger"
+               variableArguments="false">
+            <DataType
+                  value="String">
+            </DataType>
+            <Argument
+                  desc="The message"
+                  isOptional="false"
+                  name="message">
+            </Argument>
+            <Argument
+                  desc="Logging level"
+                  isOptional="true"
+                  name="level">
+            </Argument>
+         </Function>         
+                  <Function
+               desc="Inserts a Carriage Return in String"
+               isStatic="true"
+               name="TextWrap"
+               variableArguments="false">
+            <DataType
+                  value="String">
+            </DataType>
+            <Argument
+                  desc="The string that will have line feeds added"
+                  isOptional="false"
+                  name="inputString">
+            </Argument>
+            <Argument
+                  desc="The location the carriage return should be added."
+                  isOptional="false"
+                  name="position">
+            </Argument>
+         </Function>
+         <Function
+               desc="Displays all of the parameters and the values for this report run"
+               isStatic="true"
+               name="DisplayParameters"
+               variableArguments="false">
+            <DataType
+                  value="String">
+            </DataType>
+            <Argument
+                  desc="The reportContext of the current report"
+                  name="reportContext">
+            </Argument>
+         </Function>
+         <Function
+               desc="Throw a birt exception"
+               isStatic="true"
+               name="ThrowException"
+               variableArguments="false">
+            <DataType
+                  value="String">
+            </DataType>
+            <Argument
+                  desc="A message"
+                  isOptional="false"
+                  name="message">
+            </Argument>
+         </Function>
+         <Function
+               isStatic="true"
+               name="SetChartPalette"
+               variableArguments="true">
+            <DataType
+                  value="String">
+            </DataType>
+            <Argument
+                  desc="Series Item that is being adjusted"
+                  isOptional="false"
+                  name="Series">
+            </Argument>
+            <Argument
+                  desc="The IChartScriptContext element"
+                  isOptional="false"
+                  name="ChartScriptContext">
+            </Argument>
+         </Function>
+         
+      </Category>
+   </extension>
+
+</plugin>
