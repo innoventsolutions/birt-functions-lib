@@ -7,11 +7,11 @@ Aggregate functions are performed across a number of rows.  Aggregate extensions
 === ConcatenateUnique ===
 === CountUnique ===
 
-== Script Functions ==
-Script functions show up in the report designer in any of the locations where BIRT supports code assist.  
 <table> 
 <tr>
 <td valign="top" width="50%">
+== Script Functions ==
+Script functions show up in the report designer in any of the locations where BIRT supports code assist.  
 The functions from this library show up in a Category named Custom Functions.
 === AppendLibraryContent === 
 === BindParameters === 
