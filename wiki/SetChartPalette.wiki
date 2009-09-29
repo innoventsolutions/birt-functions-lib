@@ -1,0 +1,5 @@
+#summary SetChartPalette usage doc
+
+BIRT Charts use a palette for each series item.  The standard color palette is adequate but often does not match the official corporate color scheme.  Adopting an alternate color scheme requires significant UI re-work on each chart.
+
+This control allows you to tie your chart series fill and font properties to match styles that have been setup in your CSS files.
