@@ -1,3 +1,4 @@
 #summary ConcatenateUnique usage doc
+#sidebar sidebar
 
 Shows the unique text values that have been accumulated within a grouping.
