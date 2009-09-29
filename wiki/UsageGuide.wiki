@@ -8,11 +8,11 @@ Aggregate functions are performed across a number of rows.  Aggregate extensions
 === CountUnique ===
 
 == Script Functions ==
-<table width="60%"> 
+<table> 
 <tr>
-<td>
+<td width="50%">
 Script functions show up in the report designer in any of the locations where BIRT supports code assist.  The functions from this library show up in a Category named Custom Functions.
-</td><td>
+</td><td  width="50%">
 http://birt-functions-lib.googlecode.com/svn/wiki/functions.attach/CustomFunctions.png
 </td>
 </tr>
