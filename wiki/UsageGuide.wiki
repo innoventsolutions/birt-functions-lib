@@ -18,3 +18,5 @@ All of the functions for this project are placed under a CustomFunctions categor
 === SetChartPalette ===
 === TextWrap ===
 === ThrowException ===
+
+#labels Featured
