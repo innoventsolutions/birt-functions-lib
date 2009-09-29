@@ -1,4 +1,3 @@
-#summary AppendLibraryContent usage doc
 #sidebar sidebar
 
 Allows a developer to programmatically add a ReportItem in a library to the end of a report design.  
