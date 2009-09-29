@@ -13,12 +13,6 @@ Script functions show up in the report designer in any of the locations where BI
 <tr>
 <td valign="top" width="50%">
 The functions from this library show up in a Category named Custom Functions.
-</td><td  width="50%">
-http://birt-functions-lib.googlecode.com/svn/wiki/functions.attach/CustomFunctions.png
-</td>
-</tr>
-</table>
-
 === AppendLibraryContent === 
 === BindParameters === 
 === BirtLogger === 
@@ -26,4 +20,11 @@ http://birt-functions-lib.googlecode.com/svn/wiki/functions.attach/CustomFunctio
 === SetChartPalette === 
 === TextWrap === 
 === ThrowException === 
+</td><td  width="50%">
+http://birt-functions-lib.googlecode.com/svn/wiki/functions.attach/CustomFunctions.png
+</td>
+</tr>
+</table>
+
+
 
