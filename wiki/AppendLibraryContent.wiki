@@ -1,3 +1,13 @@
 #sidebar sidebar
 
 Allows a developer to programmatically add a ReportItem in a library to the end of a report design.  
+A report developer could achieve the same effect by dragging and dropping a control into a report.  
+The down-side to the drag and drop mechanism is that once an item is in a report, there is a chance the
+ReportItem can be over-written by other developers.  If this happens the inheritance from the library may be compromised.
+
+Using this technique, report developers can quickly add boiler plate disclaimers to the end of any report.  This script function
+should be called in the BeforeFactory or OnPrepare method of the report.
+
+{{{
+   CustomFunctions.AppendLibraryContent("stdDisclaimer", reportContext);
+}}}
