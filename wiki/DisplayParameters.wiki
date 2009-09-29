@@ -1,0 +1,6 @@
+#summary DisplayParameter usage doc
+
+When working with report designs, it is often useful to know what parameters were passed to a report.  Use this function to dynamically add all of the parameter information to the top of your report.
+{{{
+CustomFunctions.DisplayParameters(reportContext)
+}}}

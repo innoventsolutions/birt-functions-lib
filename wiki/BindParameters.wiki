@@ -1,0 +1,8 @@
+#summary BindParameters usage doc
+
+BIRT parameter handling in DataSets presents a few challenges.  Particularly when working with multi-select parameters.  This function simplifies the use of parameters in BIRT ODA DataSets.  You will no longer need to bind your parameters on a separate tab, and using multi-select parameters is as easy as writing
+{{{
+select * from customers 
+where 0=0 
+/* BIND and state in ($param_states) */
+}}}

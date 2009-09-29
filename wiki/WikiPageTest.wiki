@@ -1,9 +1,0 @@
-#summary One-sentence summary of this page.
-
-= Introduction =
-
-I wan this to show up in SVN.
-
-= Details =
-
-The problem could be related to the late change in project setup.

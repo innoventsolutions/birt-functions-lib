@@ -1,0 +1,3 @@
+#summary CountUnique usage doc
+
+Counts how many unique values show up in a given field.

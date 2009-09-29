@@ -1,0 +1,3 @@
+#summary BirtLogger usage doc
+
+Presents a standard way of adding logging statements to your BIRT JavaScript.

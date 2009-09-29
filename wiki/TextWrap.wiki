@@ -1,0 +1,3 @@
+#summary TextWrap usage doc
+
+A simple control that will wrap text at developers specified break point.

@@ -1,0 +1,3 @@
+#summary ThrowException usage doc
+
+Allows BIRT JavaScript code to create an error message in the report.  These error messages will show up as standard BIRT exceptions.  Gives the report developer the ability to fail gracefully.
