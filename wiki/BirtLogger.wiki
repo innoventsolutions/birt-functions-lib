@@ -13,7 +13,7 @@ CustomFunctions.BirtLogger("My Warning Message", "WARNING");
 }}} 
 
 results in 
-<dif color="red">
+<div color="red">
 {{{
 Sep 29, 2009 3:43:14 PM innovent.birt.functions.BirtLogger execute
 INFO: java.lang.String: My Message
