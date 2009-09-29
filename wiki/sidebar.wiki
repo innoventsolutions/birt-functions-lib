@@ -1,5 +1,8 @@
 #sidebar TableOfContents
 
+  * Aggregate Functions
+    * [ConcatenateUnique]
+    * [CountUnique]
   * Script Functions
     * [AppendLibraryContent]
     * [BindParameters]
@@ -8,6 +11,3 @@
     * [SetChartPalette]
     * [TextWrap]
     * [ThrowException]
-  * Aggregate Functions
-    * [ConcatenateUnique]
-    * [CountUnique]
