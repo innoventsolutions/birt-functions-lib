@@ -8,15 +8,13 @@ Aggregate functions are performed across a number of rows.  Aggregate extensions
 === CountUnique ===
 
 == Script Functions ==
-Script functions show up in the report designer in a number of places.  On the Script tab, when you look in the palette view, you will find any Script extensions showing up on the Palette view, in the BIRT Functions area.  
+Script functions show up in the report designer in any of the locations where BIRT supports code assist.  The functions from this library show up in a Category named Custom Functions.
 
-All of the functions for this project are placed under a CustomFunctions category.  
-
-=== AppendLibraryContent ===
-=== BindParameters ===
-=== BirtLogger ===
-=== DisplayParameters ===
-=== SetChartPalette ===
-=== TextWrap ===
-=== ThrowException ===
+=== AppendLibraryContent === Use script to add Library Report Items to your report.
+=== BindParameters === Simplifies the BIRT SQL parameters.  Great for multi-selects.
+=== BirtLogger === Standard mechanism to log from your script files.
+=== DisplayParameters === Shows all their parameters and values, great for report debug.
+=== SetChartPalette === Use CSS to control the chart palette.
+=== TextWrap === Wrap text to specified length.
+=== ThrowException === Allow your script to generate error messages that show in the report.
 
