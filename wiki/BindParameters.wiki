@@ -40,5 +40,5 @@ where 0=0
 NOTES: 
  * This control uses true JDBC parameter binding, it dramatically reduces the risk of SQL Injection attacks.
  * When using this control, the BIND comments are ignored when working in the !DataSet editor. 
- * If a parameters value is NULL, the /'*' BIND comments '*'/ are left as comments.
+ * If a parameters value is NULL, the /`*` BIND comments `*`/ are left as comments.
  * If the datatype is string and the value is "null" the expression will be left as a comment.
