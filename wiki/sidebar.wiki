@@ -1,0 +1,13 @@
+#sidebar TableOfContents
+
+  * Script Functions
+    * [AppendLibraryContent]
+    * [BindParameters]
+    * [BirtLogger]
+    * [DisplayParameters]
+    * [SetChartPalette]
+    * [TextWrap]
+    * [ThrowException]
+  * 
+    * [ConcatenateUnique]
+    * [CountUnique]
