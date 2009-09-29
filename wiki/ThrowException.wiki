@@ -1,7 +1,7 @@
 Allows BIRT !JavaScript code to create an error message that shows up at the end of the report. 
 These error messages will show up as standard BIRT exceptions.  
 
-The following code will add these two errors to the report:
+The following BIRT !JavaScript in a report will add these two errors to the bottom of the report output.
 {{{
 // this error will show the message.
 CustomFunctions.ThrowException("User Thrown Error", reportContext);
