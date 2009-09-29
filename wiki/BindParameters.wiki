@@ -1,7 +1,38 @@
 #sidebar sidebar
 
-BIRT parameter handling in DataSets presents a few challenges.  Particularly when working with multi-select parameters.  This function simplifies the use of parameters in BIRT ODA DataSets.  You will no longer need to bind your parameters on a separate tab, and using multi-select parameters is as easy as writing
+BIRT parameter handling in !DataSets presents a few challenges.  Particularly when working with multi-select parameters.  
+This function simplifies the use of parameters in BIRT ODA !DataSets.  
+Using this function you no longer need to bind your parameters on a separate tab, 
+and using multi-select parameters is as easy as writing some simple SQL.  
+Finally, using this function you can use the same parameter multiple times in your query without having to 
+re-bind the parameter.  
+
+The following syntax within your query will bind the parameter name param_states to your query.  When using this 
+do not use the parameter tab on the !DataSet editor.   
 {{{
+-- Bind to the param_states variables
+select * from customers 
+where 0=0 
+/* BIND and state like $param_states */
+}}}
+
+If you are using Multi-Select parameters. Bind your query to a multi-select parameter and everything will work.
+{{{
+-- Bind to the param_states variables
+select * from customers 
+where 0=0 
+/* BIND and state in ($param_states) */
+}}}
+
+NOTE: This control will use true JDBC parameter binding which dramatically reduces the risks of SQL Injection attacks.
+
+Finally, if you want to use the same parameter multiple times in your query, just use as needed.
+{{{
+-- Bind to the param_states variables
+select * from customers 
+where 0=0 
+/* BIND and state in ($param_states) */
+UNION
 select * from customers 
 where 0=0 
 /* BIND and state in ($param_states) */
