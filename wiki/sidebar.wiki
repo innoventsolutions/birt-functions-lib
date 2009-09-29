@@ -8,6 +8,6 @@
     * [SetChartPalette]
     * [TextWrap]
     * [ThrowException]
-  * 
+  * Aggregate Functions
     * [ConcatenateUnique]
     * [CountUnique]
