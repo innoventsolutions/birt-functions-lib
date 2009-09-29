@@ -14,7 +14,7 @@ Aggregate functions are performed across a collection of rows.  Aggregate extens
 <tr height="20px"><td></td></tr>
 <td valign="top" width="50%">
 == Script Functions ==
-Script functions show up in the report designer in any of the locations where BIRT supports code assist.  
+Script functions can be called anywhere that a user adds Birt Script.  This includes all expressions and scripts.  Custom functions are grouped by category and show up under the BIRT Functions.  While on a script page, the expressions will show up on the palette tab (as shown to the left).  In the expression builder, custom functions show up in the lower left panel of the expression builder. 
 The functions from this library show up in a Category named Custom Functions.
 === AppendLibraryContent === 
 === BindParameters === 
