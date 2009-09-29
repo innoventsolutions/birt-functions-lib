@@ -18,13 +18,12 @@ where 0=0
 
 If you are using Multi-Select parameters. Bind your query to a multi-select parameter and everything will work.
 {{{
--- Bind to the param_states variables
+-- Bind using a multi-select statement
 select * from customers 
 where 0=0 
 /* BIND and state in ($param_states) */
 }}}
 
-NOTE: This control will use true JDBC parameter binding which dramatically reduces the risks of SQL Injection attacks.
 
 Finally, if you want to use the same parameter multiple times in your query, just use as needed.
 {{{
@@ -37,3 +36,9 @@ select * from customers
 where 0=0 
 /* BIND and state in ($param_states) */
 }}}
+
+NOTES: 
+ * This control uses true JDBC parameter binding, it dramatically reduces the risk of SQL Injection attacks.
+ * When using this control, the BIND comments are ignored when working in the !DataSet editor. 
+ * If a parameters value is NULL, the /* BIND comments */ are left as comments.
+ * If the datatype is string and the value is "null" the expression will be left as a comment.
