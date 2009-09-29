@@ -6,7 +6,8 @@ The following code will add these two errors to the report:
 // this error will show the message.
 CustomFunctions.ThrowException("User Thrown Error", reportContext);
 
-// this error will only show the error message deep in the stack trace (click on the plus)
+// this error will show up as an unhandled error.
+// the message shows up deep in the stack trace (click on the plus, in the report)
 CustomFunctions.ThrowException("Error Thrown No Message");
 }}}
 
