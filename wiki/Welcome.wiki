@@ -1,4 +1,5 @@
 #summary Welcome to the BIRT Script Library Project.
+#sidebar sidebar
 
 = Introduction =
 

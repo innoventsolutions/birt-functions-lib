@@ -1,3 +1,4 @@
 #summary TextWrap usage doc
+#sidebar sidebar
 
 A simple control that will wrap text at developers specified break point.

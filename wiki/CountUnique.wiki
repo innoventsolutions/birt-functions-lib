@@ -1,3 +1,4 @@
 #summary CountUnique usage doc
+#sidebar sidebar
 
 Counts how many unique values show up in a given field.

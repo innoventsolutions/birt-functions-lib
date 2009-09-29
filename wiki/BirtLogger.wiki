@@ -1,3 +1,4 @@
 #summary BirtLogger usage doc
+#sidebar sidebar
 
 Presents a standard way of adding logging statements to your BIRT JavaScript.
