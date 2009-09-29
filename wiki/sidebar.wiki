@@ -1,5 +1,5 @@
 #sidebar TableOfContents
-
+[UsageGuide Usage Guide]
   * Aggregate Functions
     * [ConcatenateUnique]
     * [CountUnique]
