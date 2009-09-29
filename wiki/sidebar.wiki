@@ -1,8 +1,8 @@
 [UsageGuide Usage Guide]
-  * [Aggregate Functions]
+  * Aggregate Functions
     * [ConcatenateUnique]
     * [CountUnique]
-  * [Script Functions]
+  * Script Functions
     * [AppendLibraryContent]
     * [BindParameters]
     * [BirtLogger]
