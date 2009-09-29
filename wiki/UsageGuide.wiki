@@ -1,4 +1,3 @@
-#summary UsageGuide to the BIRT Script Library Project.
 #sidebar sidebar
 #Featured
 = Organization =

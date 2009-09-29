@@ -1,4 +1,3 @@
-#summary SetChartPalette usage doc
 #sidebar sidebar
 
 BIRT Charts use a palette for each series item.  The standard color palette is adequate but often does not match the official corporate color scheme.  Adopting an alternate color scheme requires significant UI re-work on each chart.
