@@ -56,3 +56,5 @@ So if your series is named fud, then add the following entry to your CSS.
 http://birt-functions-lib.googlecode.com/svn/wiki/functions.attach/fud.png
 Which will give the following output.
 http://birt-functions-lib.googlecode.com/svn/wiki/functions.attach/fud_chart.png
+
+NOTE: The CSS properties will not show up in the chart at design time.
