@@ -113,6 +113,11 @@
                   isOptional="false"
                   name="message">
             </Argument>
+            <Argument
+                  desc="Report Context"
+                  isOptional="true"
+                  name="reportContext">
+            </Argument>
          </Function>
          <Function
                isStatic="true"
