@@ -215,6 +215,13 @@ of confidential information.
       <update label="Innovent Updates" url="http://innovent.googlecode.com/svn/trunk/update"/>
    </url>
 
+   <requires>
+      <import plugin="org.eclipse.birt.report.engine" version="2.3.2" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.birt.data" version="2.3.2" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.birt.data.aggregation" version="2.3.2" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.birt.chart.engine" version="2.3.2" match="greaterOrEqual"/>
+   </requires>
+
    <plugin
          id="birt.functions.lib"
          download-size="0"
