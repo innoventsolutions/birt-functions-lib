@@ -1,3 +1,4 @@
+[Installation]
 [UsageGuide Usage Guide]
   * Aggregate Functions
     * [ConcatenateUnique]
