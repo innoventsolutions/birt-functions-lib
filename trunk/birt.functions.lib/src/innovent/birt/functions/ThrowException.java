@@ -19,7 +19,6 @@
  */
 package innovent.birt.functions;
 
-import innovent.birt.aggregations.factory.DataConverter;
 import innovent.birt.functions.factory.InnoventFunction;
 import innovent.birt.functions.factory.InnoventFunctionFactory;
 
