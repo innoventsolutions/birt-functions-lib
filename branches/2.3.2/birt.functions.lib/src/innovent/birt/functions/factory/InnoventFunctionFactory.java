@@ -32,7 +32,8 @@ public class InnoventFunctionFactory implements IScriptFunctionFactory {
 	 * your Function classes like the function name.
 	 * 
 	 */
-	public IScriptFunctionExecutor getFunctionExecutor(String functionName) throws BirtException {
+	public IScriptFunctionExecutor getFunctionExecutor(String functionName)
+			throws BirtException {
 		/*
 		 * example of non-conforming class name Not required if FunctionName
 		 * defined plugin.xml matches the class name
@@ -43,14 +44,17 @@ public class InnoventFunctionFactory implements IScriptFunctionFactory {
 
 		String fullClassName = package_name + "." + functionName;
 		try {
-			Class<? extends IScriptFunctionExecutor> functionClass = Class.forName(fullClassName).asSubclass(
-					IScriptFunctionExecutor.class);
-			IScriptFunctionExecutor scriptFunction = functionClass.newInstance();
+			Class<? extends IScriptFunctionExecutor> functionClass = Class
+					.forName(fullClassName).asSubclass(
+							IScriptFunctionExecutor.class);
+			IScriptFunctionExecutor scriptFunction = functionClass
+					.newInstance();
 			return scriptFunction;
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new BirtException(package_name, "Unable to find class: " + fullClassName, getResourceBundle(), e);
+			throw new BirtException(package_name, "Unable to find class: "
+					+ fullClassName, getResourceBundle(), e);
 		}
 	}
 

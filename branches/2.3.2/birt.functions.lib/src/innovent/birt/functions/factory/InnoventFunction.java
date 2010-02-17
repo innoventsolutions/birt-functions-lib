@@ -31,9 +31,11 @@ import org.eclipse.birt.report.engine.executor.ExecutionContext;
  * 
  */
 public abstract class InnoventFunction implements IScriptFunctionExecutor {
-	private static final Logger logger = Logger.getLogger(InnoventFunction.class.getName());
+	private static final Logger logger = Logger
+			.getLogger(InnoventFunction.class.getName());
 
-	public abstract Object execute(Object[] arguments, IScriptFunctionContext context) throws BirtException;
+	public abstract Object execute(Object[] arguments,
+			IScriptFunctionContext context) throws BirtException;
 
 	/**
 	 * When the DataSet editor runs, modifications to the queryText as done in the BindParameter function
@@ -54,7 +56,8 @@ public abstract class InnoventFunction implements IScriptFunctionExecutor {
 			Class rciClass = reportContext.getClass();
 			Field fieldFromScript = rciClass.getDeclaredField("context");
 			if (fieldFromScript == null) {
-				throw new NoSuchFieldException("Reporting Access to context from IReportContext");
+				throw new NoSuchFieldException(
+						"Reporting Access to context from IReportContext");
 			}
 			// instantiate the ExecutionContext object that
 			// populates the context field
@@ -63,7 +66,8 @@ public abstract class InnoventFunction implements IScriptFunctionExecutor {
 			ExecutionContext ectx = (ExecutionContext) execContext;
 
 			IEngineTask et = ectx.getEngineTask();
-			if ("DummyEngineTask".equalsIgnoreCase(et.getClass().getSimpleName())) {
+			if ("DummyEngineTask".equalsIgnoreCase(et.getClass()
+					.getSimpleName())) {
 				logger.info("Is Data Set Editor");
 				return true;
 			}
@@ -95,14 +99,18 @@ public abstract class InnoventFunction implements IScriptFunctionExecutor {
 	 * @return
 	 * @throws BirtException
 	 */
-	protected IReportContext getReportContext(final Object rcArgument) throws BirtException {
+	protected IReportContext getReportContext(final Object rcArgument)
+			throws BirtException {
 		if (rcArgument == null) {
-			throw new BirtException(InnoventFunctionFactory.plugin_id, "ReportContext object is null in "
-					+ this.getClass().getSimpleName(), InnoventFunctionFactory.getResourceBundle());
+			throw new BirtException(InnoventFunctionFactory.plugin_id,
+					"ReportContext object is null in "
+							+ this.getClass().getSimpleName(),
+					InnoventFunctionFactory.getResourceBundle());
 		}
 		if ((rcArgument instanceof IReportContext) != true) {
 			throw new BirtException(InnoventFunctionFactory.plugin_id,
-					"ReportContext is not an instance of IReportContext in " + this.getClass().getSimpleName(),
+					"ReportContext is not an instance of IReportContext in "
+							+ this.getClass().getSimpleName(),
 					InnoventFunctionFactory.getResourceBundle());
 		}
 		logger.finest("Found report context");
@@ -110,8 +118,10 @@ public abstract class InnoventFunction implements IScriptFunctionExecutor {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void addBirtException(IReportContext reportContext, String errorMessage, Integer severity) {
-		BirtException be = new BirtException("org.eclipse.birt.report.engine", errorMessage, new Object[] { "" });
+	public static void addBirtException(IReportContext reportContext,
+			String errorMessage, Integer severity) {
+		BirtException be = new BirtException("org.eclipse.birt.report.engine",
+				errorMessage, new Object[] { "" });
 		be.setSeverity(severity);
 
 		try {
@@ -129,7 +139,8 @@ public abstract class InnoventFunction implements IScriptFunctionExecutor {
 
 			// now get a handle to the addException method on ExecutionObject
 			Class execClass = execContext.getClass();
-			Method addMethod = execClass.getMethod("addException", new Class[] { BirtException.class });
+			Method addMethod = execClass.getMethod("addException",
+					new Class[] { BirtException.class });
 
 			// finally invoke the method which will add the BirtException 
 			// to the report

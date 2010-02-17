@@ -53,11 +53,13 @@ public class DataConverter {
 			try {
 				return Double.valueOf((String) source);
 			} catch (NumberFormatException e) {
-				throw new RuntimeException("Failure to convert to double, bad number format", e);
+				throw new RuntimeException(
+						"Failure to convert to double, bad number format", e);
 			}
 		} else {
-			throw new RuntimeException("Failure to convert to double, unconvertible data type: "
-					+ source.getClass().toString());
+			throw new RuntimeException(
+					"Failure to convert to double, unconvertible data type: "
+							+ source.getClass().toString());
 		}
 	}
 
@@ -88,11 +90,13 @@ public class DataConverter {
 			try {
 				return Integer.valueOf((String) source);
 			} catch (NumberFormatException e) {
-				throw new RuntimeException("Failure to convert to double, bad number format", e);
+				throw new RuntimeException(
+						"Failure to convert to double, bad number format", e);
 			}
 		} else {
-			throw new RuntimeException("Failure to convert to double, unconvertible data type: "
-					+ source.getClass().toString());
+			throw new RuntimeException(
+					"Failure to convert to double, unconvertible data type: "
+							+ source.getClass().toString());
 		}
 	}
 
