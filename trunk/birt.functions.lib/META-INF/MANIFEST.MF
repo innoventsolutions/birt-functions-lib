@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Functions Plug-in
 Bundle-SymbolicName: birt.functions.lib;singleton:=true
-Bundle-Version: 1.0.1
+Bundle-Version: 2.0.0
 Bundle-Vendor: Innovent Solutions, Inc.
 Require-Bundle: org.eclipse.birt.report.engine;bundle-version="2.3.2",
  org.eclipse.birt.data;bundle-version="2.3.2",
