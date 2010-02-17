@@ -33,8 +33,10 @@ import org.eclipse.birt.data.engine.core.DataException;
  */
 public class CountUnique implements IAggrFunction {
 
-	private static final InnoventParameterDefn dataValue = new InnoventParameterDefn("DataValue", "Data Value", false,
-			true, InnoventParameterDefn.CALCULATABLE, "The value that will be counted uniquely");
+	private static final InnoventParameterDefn dataValue = new InnoventParameterDefn(
+			"DataValue", "Data Value", false, true,
+			InnoventParameterDefn.CALCULATABLE,
+			"The value that will be counted uniquely");
 
 	public int getDataType() {
 		return DataType.INTEGER_TYPE;
@@ -109,7 +111,8 @@ public class CountUnique implements IAggrFunction {
 
 		public Object getValue() throws DataException {
 			if (!isFinished) {
-				throw new RuntimeException("Error! Call summary total function before finished the dataset");
+				throw new RuntimeException(
+						"Error! Call summary total function before finished the dataset");
 			}
 			return new Integer(values.size());
 		}

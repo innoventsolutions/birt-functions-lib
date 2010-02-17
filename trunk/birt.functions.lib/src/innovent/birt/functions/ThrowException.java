@@ -43,18 +43,22 @@ import org.eclipse.birt.report.engine.api.script.IReportContext;
  */
 public class ThrowException extends InnoventFunction {
 	@Override
-	public Object execute(Object[] arguments, IScriptFunctionContext context) throws BirtException {
+	public Object execute(Object[] arguments, IScriptFunctionContext context)
+			throws BirtException {
 		String message = "Unknown thrown error: message is null";
 		if (arguments == null || arguments.length == 0) {
-			throw new BirtException(InnoventFunctionFactory.plugin_id, message, new Object[] { "" });
+			throw new BirtException(InnoventFunctionFactory.plugin_id, message,
+					new Object[] { "" });
 		}
 
 		Object msgObject = arguments[0];
 		if (msgObject != null) {
-			message = msgObject.getClass().getName() + ": " + msgObject.toString();
+			message = msgObject.getClass().getName() + ": "
+					+ msgObject.toString();
 		}
 		if (arguments.length == 1) {
-			throw new BirtException(InnoventFunctionFactory.plugin_id, message, new Object[] { "" });
+			throw new BirtException(InnoventFunctionFactory.plugin_id, message,
+					new Object[] { "" });
 		}
 
 		if (arguments.length > 1) {

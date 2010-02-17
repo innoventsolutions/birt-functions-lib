@@ -43,40 +43,48 @@ public class SetChartPalette extends InnoventFunction {
 	private final String className = this.getClass().toString();
 
 	@Override
-	public Object execute(Object[] args, IScriptFunctionContext context) throws BirtException {
+	public Object execute(Object[] args, IScriptFunctionContext context)
+			throws BirtException {
 		Object tmpObj = args[0];
 		if (!(tmpObj instanceof Series)) {
-			throw new BirtException(InnoventFunctionFactory.plugin_id, "First argument has to be Series object "
-					+ className, new Object[] { "" });
+			throw new BirtException(InnoventFunctionFactory.plugin_id,
+					"First argument has to be Series object " + className,
+					new Object[] { "" });
 		}
 		final Series series = (Series) tmpObj;
 
 		tmpObj = args[1];
 		if (!(tmpObj instanceof IChartScriptContext)) {
 			throw new BirtException(InnoventFunctionFactory.plugin_id,
-					"Second argument has to be IChartScriptContext object " + className, new Object[] { "" });
+					"Second argument has to be IChartScriptContext object "
+							+ className, new Object[] { "" });
 
 		}
 		final IChartScriptContext chartScriptCtx = (IChartScriptContext) tmpObj;
 
-		final IReportContext reportContext = (IReportContext) chartScriptCtx.getExternalContext().getObject();
+		final IReportContext reportContext = (IReportContext) chartScriptCtx
+				.getExternalContext().getObject();
 
 		@SuppressWarnings("unchecked")
-		final List<SharedStyleHandle> lstStyles = reportContext.getDesignHandle().getAllStyles();
+		final List<SharedStyleHandle> lstStyles = reportContext
+				.getDesignHandle().getAllStyles();
 		File resourceFolder = null;
 		try {
-			final String resFolderName = reportContext.getReportRunnable().getReportEngine().getConfig().getResourcePath();
+			final String resFolderName = reportContext.getReportRunnable()
+					.getReportEngine().getConfig().getResourcePath();
 			if (resFolderName != null) {
 				resourceFolder = new File(resFolderName);
 			}
 		} catch (Exception e) {
-			throw new BirtException(InnoventFunctionFactory.plugin_id, "Unable to find RESOURCE HOME in " + className,
+			throw new BirtException(InnoventFunctionFactory.plugin_id,
+					"Unable to find RESOURCE HOME in " + className,
 					new Object[] { "" });
 		}
 
 		final SharedStyleHandle styleHdl = getSeriesStyle(series, lstStyles);
 		final Palette seriesPalette = getSeriesPalette(resourceFolder, styleHdl);
-		SeriesDefinitionImpl seriesDefn = (SeriesDefinitionImpl) series.eContainer();
+		SeriesDefinitionImpl seriesDefn = (SeriesDefinitionImpl) series
+				.eContainer();
 
 		// The palette is the fill for the series
 		if (seriesPalette != null && seriesDefn != null) {
@@ -92,46 +100,51 @@ public class SetChartPalette extends InnoventFunction {
 		return "SUCCESS";
 	}
 
-	
 	private void setSeriesFont(Text curText, SharedStyleHandle styleHdl) {
 		// curText is a reference to original
 		ColorDefinition cd = curText.getColor();
 		String cssColor = styleHdl.getColor().getDisplayValue();
-		if (cssColor != null && cssColor.length() > 0 && cssColor.startsWith("RGB(")) {
+		if (cssColor != null && cssColor.length() > 0
+				&& cssColor.startsWith("RGB(")) {
 			// Expecting a string in form RGB(red, green, blue)
 			cssColor = cssColor.substring(4, cssColor.length() - 1);
 			String[] cS = cssColor.split(",");
-			cd.set(Integer.valueOf(cS[0]), Integer.valueOf(cS[1]), Integer.valueOf(cS[2]));
+			cd.set(Integer.valueOf(cS[0]), Integer.valueOf(cS[1]), Integer
+					.valueOf(cS[2]));
 		}
 
 		FontDefinition fontDef = curText.getFont();
-		
-		if (styleHdl.getFontFamilyHandle() != null){
+
+		if (styleHdl.getFontFamilyHandle() != null) {
 			fontDef.setName(styleHdl.getFontFamilyHandle().getStringValue());
 		}
-		if(styleHdl.getFontSize() != null){
+		if (styleHdl.getFontSize() != null) {
 			DimensionHandle cssSize = styleHdl.getFontSize();
-			if ("px".equalsIgnoreCase(cssSize.getAbsoluteValue().getUnits())){
-				fontDef.setSize((float)cssSize.getAbsoluteValue().getMeasure());
+			if ("px".equalsIgnoreCase(cssSize.getAbsoluteValue().getUnits())) {
+				fontDef
+						.setSize((float) cssSize.getAbsoluteValue()
+								.getMeasure());
 			}
 		}
 		String cssStyle = styleHdl.getFontStyle();
-		if(cssStyle.equals(DesignChoiceConstants.FONT_STYLE_ITALIC)){
+		if (cssStyle.equals(DesignChoiceConstants.FONT_STYLE_ITALIC)) {
 			fontDef.setItalic(true);
-		} 
+		}
 		if (cssStyle.equals(DesignChoiceConstants.FONT_STYLE_NORMAL)) {
 			fontDef.setBold(false);
 			fontDef.setItalic(false);
 		}
 		String cssWeight = styleHdl.getFontWeight();
-		if (cssWeight.equalsIgnoreCase(DesignChoiceConstants.FONT_WEIGHT_BOLD) || 
-			 cssWeight.equalsIgnoreCase(DesignChoiceConstants.FONT_WEIGHT_BOLDER) ){
+		if (cssWeight.equalsIgnoreCase(DesignChoiceConstants.FONT_WEIGHT_BOLD)
+				|| cssWeight
+						.equalsIgnoreCase(DesignChoiceConstants.FONT_WEIGHT_BOLDER)) {
 			fontDef.setBold(true);
 		}
-		
+
 	}
 
-	private SharedStyleHandle getSeriesStyle(Series series, List<SharedStyleHandle> lstStyles) {
+	private SharedStyleHandle getSeriesStyle(Series series,
+			List<SharedStyleHandle> lstStyles) {
 		String seriesId = (String) series.getSeriesIdentifier();
 		if (seriesId.indexOf("=") > 0) {
 			// The seriesId has been externalized. 
@@ -155,10 +168,11 @@ public class SetChartPalette extends InnoventFunction {
 		return null;
 	}
 
-	private Palette getSeriesPalette(File resourceFolder, SharedStyleHandle styleHandle) {
-		if (styleHandle == null )
+	private Palette getSeriesPalette(File resourceFolder,
+			SharedStyleHandle styleHandle) {
+		if (styleHandle == null)
 			return null;
-		
+
 		Fill fill = null;
 		String imageFileName = styleHandle.getBackgroundImage();
 		if (imageFileName != null) {
@@ -176,12 +190,16 @@ public class SetChartPalette extends InnoventFunction {
 		}
 		if (fill == null) {
 			/* No background image use color based image */
-			String colorString = styleHandle.getBackgroundColor().getDisplayValue();
-			if (colorString != null && colorString.length() > 0 && colorString.startsWith("RGB(")) {
+			String colorString = styleHandle.getBackgroundColor()
+					.getDisplayValue();
+			if (colorString != null && colorString.length() > 0
+					&& colorString.startsWith("RGB(")) {
 				// Expecting a string in form RGB(red, green, blue)
-				colorString = colorString.substring(4, colorString.length() - 1);
+				colorString = colorString
+						.substring(4, colorString.length() - 1);
 				String[] cS = colorString.split(",");
-				fill = ColorDefinitionImpl.create(Integer.valueOf(cS[0]), Integer.valueOf(cS[1]), Integer.valueOf(cS[2]));
+				fill = ColorDefinitionImpl.create(Integer.valueOf(cS[0]),
+						Integer.valueOf(cS[1]), Integer.valueOf(cS[2]));
 			}
 		}
 		if (fill == null)

@@ -35,12 +35,14 @@ import org.eclipse.birt.data.engine.api.aggregation.IAggregationFactory;
 public class InnoventAggregateFactory implements IAggregationFactory {
 
 	private Map<String, IAggrFunction> aggrMap = new HashMap<String, IAggrFunction>();
-	private static final Logger logger = Logger.getLogger(InnoventAggregateFactory.class.getName());
-	
+	private static final Logger logger = Logger
+			.getLogger(InnoventAggregateFactory.class.getName());
+
 	private void populateAggregations() {
-				
+
 		final ConcatenateUnique concatenateUnique = new ConcatenateUnique();
-		aggrMap.put(concatenateUnique.getName().toUpperCase(), concatenateUnique);
+		aggrMap.put(concatenateUnique.getName().toUpperCase(),
+				concatenateUnique);
 
 		final CountUnique countUnique = new CountUnique();
 		aggrMap.put(countUnique.getName().toUpperCase(), countUnique);
@@ -56,9 +58,9 @@ public class InnoventAggregateFactory implements IAggregationFactory {
 
 	public IAggrFunction getAggregation(String name) {
 		IAggrFunction func = aggrMap.get(name.toUpperCase());
-		if (func == null){
+		if (func == null) {
 			logger.warning(name + " is not a registered Aggregation");
 		}
 		return func;
-	}	
+	}
 }
