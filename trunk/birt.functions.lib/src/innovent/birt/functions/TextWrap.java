@@ -33,7 +33,8 @@ public class TextWrap extends InnoventFunction {
 	 * @param length
 	 * @return
 	 */
-	public Object execute(Object[] args, IScriptFunctionContext context) throws BirtException {
+	public Object execute(Object[] args, IScriptFunctionContext context)
+			throws BirtException {
 		String inputString = String.valueOf(args[0]);
 		if (inputString == null)
 			return "";

@@ -43,14 +43,17 @@ public class AppendLibraryContent extends InnoventFunction {
 	 *  NOTE: Does not take care of any DataSources or DataSets that the item is dependent on.
 	 *  
 	 */
-	public Object execute(Object[] args, IScriptFunctionContext scriptContext) throws BirtException {
+	public Object execute(Object[] args, IScriptFunctionContext scriptContext)
+			throws BirtException {
 		if (args.length < 1)
-			throw new BirtException(InnoventFunctionFactory.plugin_id, "No reportContext supplied to " + className,
+			throw new BirtException(InnoventFunctionFactory.plugin_id,
+					"No reportContext supplied to " + className,
 					new Object[] { "" });
 
 		String reportItemName = String.valueOf(args[0]);
 		if (reportItemName == null || reportItemName.trim().length() == 0) {
-			throw new BirtException(InnoventFunctionFactory.plugin_id, "ReportItem Name is required for " + className,
+			throw new BirtException(InnoventFunctionFactory.plugin_id,
+					"ReportItem Name is required for " + className,
 					new Object[] { "" });
 		}
 
@@ -60,7 +63,8 @@ public class AppendLibraryContent extends InnoventFunction {
 			return null;
 		}
 
-		ReportDesignHandle designHandle = (ReportDesignHandle) rptContext.getReportRunnable().getDesignHandle();
+		ReportDesignHandle designHandle = (ReportDesignHandle) rptContext
+				.getReportRunnable().getDesignHandle();
 
 		@SuppressWarnings("unchecked")
 		List<ModuleHandle> libs = designHandle.getLibraries();
@@ -71,8 +75,9 @@ public class AppendLibraryContent extends InnoventFunction {
 			return "success";
 		}
 
-		throw new BirtException(InnoventFunctionFactory.plugin_id, "failure to find " + reportItemName + " in libraries: " + this.className,
-				new Object[] { "" });
+		throw new BirtException(InnoventFunctionFactory.plugin_id,
+				"failure to find " + reportItemName + " in libraries: "
+						+ this.className, new Object[] { "" });
 	}
 
 }
