@@ -33,8 +33,9 @@ public class InnoventParameterDefn implements IParameterDefn {
 	private String description;
 	private int[] supportedDataTypes;
 
-	public static final int[] CALCULATABLE = new int[] { DataType.BOOLEAN_TYPE, DataType.INTEGER_TYPE,
-			DataType.DOUBLE_TYPE, DataType.DECIMAL_TYPE, DataType.STRING_TYPE, DataType.DATE_TYPE, DataType.SQL_DATE_TYPE,
+	public static final int[] CALCULATABLE = new int[] { DataType.BOOLEAN_TYPE,
+			DataType.INTEGER_TYPE, DataType.DOUBLE_TYPE, DataType.DECIMAL_TYPE,
+			DataType.STRING_TYPE, DataType.DATE_TYPE, DataType.SQL_DATE_TYPE,
 			DataType.SQL_TIME_TYPE };
 
 	/**
@@ -46,8 +47,9 @@ public class InnoventParameterDefn implements IParameterDefn {
 	 * @param supportedDataTypes
 	 * @param description
 	 */
-	public InnoventParameterDefn(String name, String displayName, boolean isOptional, boolean isDataField,
-			int[] supportedDataTypes, String description) {
+	public InnoventParameterDefn(String name, String displayName,
+			boolean isOptional, boolean isDataField, int[] supportedDataTypes,
+			String description) {
 		assert name != null;
 		assert supportedDataTypes != null;
 
@@ -64,7 +66,7 @@ public class InnoventParameterDefn implements IParameterDefn {
 	 *            the isOptional to set
 	 */
 	public void setOptional(boolean isOptional) {
-		
+
 		this.isOptional = isOptional;
 	}
 
@@ -164,7 +166,8 @@ public class InnoventParameterDefn implements IParameterDefn {
 			return true;
 
 		for (int i = 0; i < supportedDataTypes.length; i++) {
-			if (supportedDataTypes[i] == DataType.ANY_TYPE || supportedDataTypes[i] == dataType) {
+			if (supportedDataTypes[i] == DataType.ANY_TYPE
+					|| supportedDataTypes[i] == dataType) {
 				return true;
 			}
 		}

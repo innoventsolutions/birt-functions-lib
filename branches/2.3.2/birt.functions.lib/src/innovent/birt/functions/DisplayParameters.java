@@ -52,24 +52,30 @@ public class DisplayParameters extends InnoventFunction {
 	 * Find and replace all of the Multi-Selection Strings in the sql code
 	 */
 	@SuppressWarnings("unchecked")
-	public Object execute(Object[] args, IScriptFunctionContext scriptContext) throws BirtException {
+	public Object execute(Object[] args, IScriptFunctionContext scriptContext)
+			throws BirtException {
 		IReportContext rptContext = getReportContext(args[0]);
 		// do not run this code if in the dataSet editor
 		if (isDataSetEditor(rptContext)) {
 			return null;
 		}
 		IReportRunnable runnable = rptContext.getReportRunnable();
-		IGetParameterDefinitionTask parameterTask = runnable.getReportEngine().createGetParameterDefinitionTask(runnable);
+		IGetParameterDefinitionTask parameterTask = runnable.getReportEngine()
+				.createGetParameterDefinitionTask(runnable);
 
-		ReportDesignHandle designHandle = (ReportDesignHandle) rptContext.getReportRunnable().getDesignHandle();
-		Collection<ParameterDefn> paramRefs = parameterTask.getParameterDefns(false);
+		ReportDesignHandle designHandle = (ReportDesignHandle) rptContext
+				.getReportRunnable().getDesignHandle();
+		Collection<ParameterDefn> paramRefs = parameterTask
+				.getParameterDefns(false);
 		if (paramRefs == null || paramRefs.size() == 0) {
-			LabelHandle lh = designHandle.getElementFactory().newLabel("paramters");
+			LabelHandle lh = designHandle.getElementFactory().newLabel(
+					"paramters");
 			lh.setText("No Parameters Defined");
 			designHandle.getBody().add(lh, 0);
 		}
 
-		GridHandle newGrid = designHandle.getElementFactory().newGridItem("parameterGrid", 4, paramRefs.size() + 1);
+		GridHandle newGrid = designHandle.getElementFactory().newGridItem(
+				"parameterGrid", 4, paramRefs.size() + 1);
 		newGrid.setWidth("100%");
 
 		newGrid.setProperty(IStyleModel.BACKGROUND_COLOR_PROP, "#99B3CC");
@@ -77,10 +83,6 @@ public class DisplayParameters extends InnoventFunction {
 		hdrRow.setProperty(IStyleModel.BACKGROUND_COLOR_PROP, "#0529B");
 		hdrRow.setProperty(IStyleModel.COLOR_PROP, "#FFFFFF");
 		designHandle.getBody().add(newGrid, 0);
-		
-		
-		
-
 
 		// Add Labels to the first row cells
 		AddLabelToCell(newGrid, 0, 0, "Name");
@@ -130,7 +132,8 @@ public class DisplayParameters extends InnoventFunction {
 		return "success";
 	}
 
-	private void setBorder(DesignElementHandle elementHdl) throws SemanticException {
+	private void setBorder(DesignElementHandle elementHdl)
+			throws SemanticException {
 		elementHdl.setProperty(IStyleModel.BORDER_BOTTOM_COLOR_PROP, "#0529B");
 		elementHdl.setProperty(IStyleModel.BORDER_BOTTOM_WIDTH_PROP, "thin");
 		elementHdl.setProperty(IStyleModel.BORDER_BOTTOM_STYLE_PROP, "solid");
@@ -142,14 +145,14 @@ public class DisplayParameters extends InnoventFunction {
 		elementHdl.setProperty(IStyleModel.BORDER_LEFT_COLOR_PROP, "#0529B");
 		elementHdl.setProperty(IStyleModel.BORDER_LEFT_WIDTH_PROP, "thin");
 		elementHdl.setProperty(IStyleModel.BORDER_LEFT_STYLE_PROP, "solid");
-		
+
 		elementHdl.setProperty(IStyleModel.BORDER_RIGHT_COLOR_PROP, "#0529B");
 		elementHdl.setProperty(IStyleModel.BORDER_RIGHT_WIDTH_PROP, "thin");
 		elementHdl.setProperty(IStyleModel.BORDER_RIGHT_STYLE_PROP, "solid");
 	}
 
-	private void AddLabelToCell(GridHandle newGrid, int row, int col, Object obj) throws SemanticException,
-			ContentException, NameException {
+	private void AddLabelToCell(GridHandle newGrid, int row, int col, Object obj)
+			throws SemanticException, ContentException, NameException {
 		String str = obj == null ? "NULL" : obj.toString();
 		LabelHandle lh = newGrid.getElementFactory().newLabel(str);
 		lh.setText(str);

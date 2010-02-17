@@ -41,8 +41,10 @@ import org.eclipse.birt.data.engine.core.DataException;
  */
 public class ConcatenateUnique implements IAggrFunction {
 
-	private static final InnoventParameterDefn dataValue = new InnoventParameterDefn("DataValue", "Data Value", false,
-			true, InnoventParameterDefn.CALCULATABLE, "The value that will be counted uniquely");
+	private static final InnoventParameterDefn dataValue = new InnoventParameterDefn(
+			"DataValue", "Data Value", false, true,
+			InnoventParameterDefn.CALCULATABLE,
+			"The value that will be counted uniquely");
 
 	public String getName() {
 		return "CONCATENATEUNIQUE";
@@ -131,10 +133,12 @@ public class ConcatenateUnique implements IAggrFunction {
 
 		public Object getValue() throws DataException {
 			if (!isFinished) {
-				throw new RuntimeException("Error! Call summary total function before finished the dataset");
+				throw new RuntimeException(
+						"Error! Call summary total function before finished the dataset");
 			}
 			StringBuffer cVal = new StringBuffer();
-			for (Iterator<String> iterator = values.iterator(); iterator.hasNext();) {
+			for (Iterator<String> iterator = values.iterator(); iterator
+					.hasNext();) {
 				cVal.append((String) iterator.next());
 				if (iterator.hasNext())
 					cVal.append("\n");
