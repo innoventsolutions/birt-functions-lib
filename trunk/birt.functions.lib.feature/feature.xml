@@ -2,7 +2,7 @@
 <feature
       id="birt.functions.lib.feature"
       label="BIRT Functions Library"
-      version="2.0.0"
+      version="2.5.1.1"
       provider-name="Innovent Solutions, Inc.">
 
    <description url="http://code.google.com/p/birt-functions-lib/">
