@@ -7,6 +7,9 @@ and using multi-select parameters is as easy as writing some simple SQL.
 Finally, using this function you can use the same parameter multiple times in your query without having to 
 re-bind the parameter.  
 
+NOTE: The function should be called from beforeFactory method of the top most component in the report. 
+ CustomFunctions.BindParameters(this.reportContext);
+
 The following syntax within your query will bind the parameter name param_states to your query.  When using this 
 do not use the parameter tab on the !DataSet editor.   
 {{{
