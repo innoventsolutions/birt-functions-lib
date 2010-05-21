@@ -25,6 +25,7 @@ import org.eclipse.birt.report.engine.api.script.IReportContext;
 import org.eclipse.birt.report.model.api.DesignElementHandle;
 import org.eclipse.birt.report.model.api.ModuleHandle;
 import org.eclipse.birt.report.model.api.ReportDesignHandle;
+import org.eclipse.birt.report.model.api.SlotHandle;
 
 /**
  * Utility function that will add a ReportItem from a library into your report.
@@ -37,11 +38,11 @@ public class AppendLibraryContent extends InnoventFunction {
 	private final String className = this.getClass().toString();
 
 	/**
-	 * Given the name of a Library ReportItem, 
-	 *  Add it to the end of the report.
-	 *  
-	 *  NOTE: Does not take care of any DataSources or DataSets that the item is dependent on.
-	 *  
+	 * Given the name of a Library ReportItem, Add it to the end of the report.
+	 * 
+	 * NOTE: Does not take care of any DataSources or DataSets that the item is
+	 * dependent on.
+	 * 
 	 */
 	public Object execute(Object[] args, IScriptFunctionContext scriptContext)
 			throws BirtException {
@@ -71,7 +72,14 @@ public class AppendLibraryContent extends InnoventFunction {
 		DesignElementHandle libRptItemHandle = null;
 		for (ModuleHandle libHandle : libs) {
 			libRptItemHandle = libHandle.findElement(reportItemName);
-			designHandle.getBody().add(libRptItemHandle);
+			
+			// create a new item from the library item.
+			DesignElementHandle newLibItemHandle = designHandle
+					.getElementFactory().newElementFrom(
+							libRptItemHandle,
+							libRptItemHandle.getName()
+									+ System.currentTimeMillis());
+			designHandle.getBody().add(newLibItemHandle);
 			return "success";
 		}
 
