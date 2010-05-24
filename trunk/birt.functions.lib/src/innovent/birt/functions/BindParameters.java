@@ -36,6 +36,8 @@ import org.eclipse.birt.core.exception.BirtException;
 import org.eclipse.birt.core.script.functionservice.IScriptFunctionContext;
 import org.eclipse.birt.report.engine.api.script.IReportContext;
 import org.eclipse.birt.report.model.api.DataSetHandle;
+import org.eclipse.birt.report.model.api.Expression;
+import org.eclipse.birt.report.model.api.ExpressionType;
 import org.eclipse.birt.report.model.api.OdaDataSetHandle;
 import org.eclipse.birt.report.model.api.OdaDataSetParameterHandle;
 import org.eclipse.birt.report.model.api.PropertyHandle;
@@ -129,6 +131,15 @@ public class BindParameters extends InnoventFunction {
 				bindParameters(rptContext, (OdaDataSetHandle) dataSetHandle);
 			}
 		}
+
+		/* DEBUG modified design to a file
+		try {
+			designHandle.saveAs("fred.xml");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		END DEBUG */
 
 		return null;
 	}
@@ -305,12 +316,12 @@ public class BindParameters extends InnoventFunction {
 					SimpleDateFormat dateFormat = new SimpleDateFormat(
 							"yyyy-MM-dd");
 					addParameterBinding(odaDataSetHandle, newParamIndex,
-							"date", dateFormat.format((Date) paramObject));
+							"date",  quote(dateFormat.format((Date) paramObject)) );
 				} else {
 					SimpleDateFormat dateFormat = new SimpleDateFormat(
 							"yyyy-MM-dd HH:mm:ss.SSS");
 					addParameterBinding(odaDataSetHandle, newParamIndex,
-							"datetime", dateFormat.format((Date) paramObject));
+							"datetime", quote(dateFormat.format((Date) paramObject)));
 				}
 				return true;
 			}
@@ -355,7 +366,12 @@ public class BindParameters extends InnoventFunction {
 			parameter.setName("rsp_param_" + paramCount++);
 			parameter.setPosition(paramIndex);
 			parameter.setDataType(dataType);
-			parameter.setDefaultValue(dataValue);
+			
+			//no longer works.  Need to use new format to add as an expression
+			//parameter.setDefaultValue(dataValue); 
+			Expression expr = new Expression(dataValue,ExpressionType.JAVASCRIPT );
+			parameter.setExpressionProperty(OdaDataSetParameter.DEFAULT_VALUE_MEMBER, expr);
+			
 			parameter.setIsInput(true);
 			parameter.setIsOutput(false);
 			PropertyHandle parameterHandle = odaDataSetHandle
