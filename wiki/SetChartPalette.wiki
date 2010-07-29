@@ -43,7 +43,7 @@ chart series.  Given a CSS like this
 }}}
 
 Would give a report that looks like this.  As you can see, I have used the same CSS styles in my table which follows the chart.
-http://svn.codespot.com/a/eclipselabs.org/birt-functions-lib/wikifunctions.attach/Chart.png
+http://svn.codespot.com/a/eclipselabs.org/birt-functions-lib/wiki/functions.attach/Chart.png
 
 If your series names do not match series-1, series-2...  Simply add CSS styles that match your series name. 
 So if your series is named fud, then add the following entry to your CSS.
@@ -53,8 +53,8 @@ So if your series is named fud, then add the following entry to your CSS.
 	background-image: url("blackboard.common/resources/image/series-8.gif");
 }
 }}}
-http://svn.codespot.com/a/eclipselabs.org/birt-functions-lib/wikifunctions.attach/fud.png
+http://svn.codespot.com/a/eclipselabs.org/birt-functions-lib/wiki/functions.attach/fud.png
 Which will give the following output.
-http://svn.codespot.com/a/eclipselabs.org/birt-functions-lib/wikifunctions.attach/fud_chart.png
+http://svn.codespot.com/a/eclipselabs.org/birt-functions-lib/wiki/functions.attach/fud_chart.png
 
 NOTE: The CSS properties will not show up in the chart at design time.
