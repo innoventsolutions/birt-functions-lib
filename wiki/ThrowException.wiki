@@ -11,4 +11,4 @@ CustomFunctions.ThrowException("User Thrown Error", reportContext);
 CustomFunctions.ThrowException("Error Thrown No Message");
 }}}
 
-http://svn.codespot.com/a/eclipselabs.org/birt-functions-lib/wikifunctions.attach/errors.png
+http://svn.codespot.com/a/eclipselabs.org/birt-functions-lib/wiki/functions.attach/errors.png
