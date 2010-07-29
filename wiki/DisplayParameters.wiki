@@ -14,4 +14,4 @@ if (params["paramDebug"].value) {
 
 Doing this will cause the following table to be inserted at the beginning of your report.
 
-http://birt-functions-lib.googlecode.com/svn/wiki/functions.attach/DisplayParameters.png
+http://svn.codespot.com/a/eclipselabs.org/birt-functions-lib/wikifunctions.attach/DisplayParameters.png

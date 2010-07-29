@@ -11,7 +11,7 @@ Custom aggregates support all of the grouping and filtering options that the sta
 === ConcatenateUnique ===
 === CountUnique ===
 </td>
-<td width="50%">http://birt-functions-lib.googlecode.com/svn/wiki/functions.attach/AggregationBuilder.png</td>
+<td width="50%">http://svn.codespot.com/a/eclipselabs.org/birt-functions-lib/wikifunctions.attach/AggregationBuilder.png</td>
 </tr><tr>
 <tr height="20px"><td></td></tr>
 <td valign="top" width="50%">
@@ -28,7 +28,7 @@ While on a script page, the expressions will show up on the palette tab (as show
 === TextWrap === 
 === ThrowException === 
 </td><td  width="50%">
-http://birt-functions-lib.googlecode.com/svn/wiki/functions.attach/CustomFunctions.png
+http://svn.codespot.com/a/eclipselabs.org/birt-functions-lib/wikifunctions.attach/CustomFunctions.png
 </td>
 </tr>
 </table>
