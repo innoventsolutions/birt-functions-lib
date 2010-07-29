@@ -3,4 +3,4 @@ content of this expression up at 20 characters.  The control will attempt to bre
 {{{
 CustomFunctions.TextWrap(dataSetRow["LONG_STRING"], 20)
 }}}
-http://birt-functions-lib.googlecode.com/svn/wiki/functions.attach/wrap.png
+http://svn.codespot.com/a/eclipselabs.org/birt-functions-lib/wikifunctions.attach/wrap.png
