@@ -43,7 +43,16 @@ public class TextWrap extends InnoventFunction {
 		if (p == null)
 			return inputString;
 
-		Integer position = Integer.valueOf(p);
+		// FIX, handle positions passed as numbers
+		// BIRT automatically converts a number to a floating point
+		Integer position = 0;
+		if (p.indexOf(".") >= 0){
+			Float f = Float.valueOf(p);
+			position = Integer.valueOf(Math.round(f));
+		} else {
+			position = Integer.valueOf(p);
+		}
+			
 		if (position == null)
 			return inputString;
 
