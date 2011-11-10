@@ -102,7 +102,13 @@ public class SetChartPalette extends InnoventFunction {
 
 	private void setSeriesFont(Text curText, SharedStyleHandle styleHdl) {
 		// curText is a reference to original
+		if (curText == null)
+			return;
+		
 		ColorDefinition cd = curText.getColor();
+		if (cd == null)
+			return;
+		
 		String cssColor = styleHdl.getColor().getDisplayValue();
 		if (cssColor != null && cssColor.length() > 0
 				&& cssColor.startsWith("RGB(")) {
