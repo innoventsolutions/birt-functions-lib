@@ -22,6 +22,7 @@ package innovent.birt.functions;
 import innovent.birt.functions.factory.InnoventFunction;
 import innovent.birt.functions.factory.InnoventFunctionFactory;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -133,13 +134,14 @@ public class BindParameters extends InnoventFunction {
 		}
 
 		/* DEBUG modified design to a file
+		 */
 		try {
 			designHandle.saveAs("fred.xml");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		END DEBUG */
+		/* END DEBUG */
 
 		return null;
 	}

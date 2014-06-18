@@ -52,7 +52,7 @@ public abstract class InnoventFunction implements IScriptFunctionExecutor {
 		try {
 
 			// get the protect field 'context' from reportContext
-			@SuppressWarnings("unchecked")
+			@SuppressWarnings({ "rawtypes" })
 			Class rciClass = reportContext.getClass();
 			Field fieldFromScript = rciClass.getDeclaredField("context");
 			if (fieldFromScript == null) {
@@ -73,17 +73,13 @@ public abstract class InnoventFunction implements IScriptFunctionExecutor {
 			}
 
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.warning("BIRT Functions, check for DataSet Editor: " + e.getMessage());
 		} catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.warning("BIRT Functions, check for DataSet Editor: " + e.getMessage());
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.warning("BIRT Functions, check for DataSet Editor: " + e.getMessage());
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.warning("BIRT Functions, check for DataSet Editor: " + e.getMessage());
 		}
 		logger.finest("Is Not a Data Set Editor");
 
@@ -126,6 +122,7 @@ public abstract class InnoventFunction implements IScriptFunctionExecutor {
 
 		try {
 			// get the protect field 'context' from reportContext
+			@SuppressWarnings("rawtypes")
 			Class rciClass = reportContext.getClass();
 			Field fieldFromScript = rciClass.getDeclaredField("context");
 			if (fieldFromScript == null) {
@@ -138,6 +135,7 @@ public abstract class InnoventFunction implements IScriptFunctionExecutor {
 			Object execContext = fieldFromScript.get(reportContext);
 
 			// now get a handle to the addException method on ExecutionObject
+			@SuppressWarnings("rawtypes")
 			Class execClass = execContext.getClass();
 			Method addMethod = execClass.getMethod("addException",
 					new Class[] { BirtException.class });
