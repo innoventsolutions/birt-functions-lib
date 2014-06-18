@@ -30,7 +30,6 @@ import org.eclipse.birt.core.script.functionservice.IScriptFunctionContext;
 import org.eclipse.birt.report.engine.api.script.IReportContext;
 import org.eclipse.birt.report.engine.api.script.ScriptException;
 import org.eclipse.birt.report.engine.script.internal.instance.DataSetInstance;
-import org.eclipse.birt.report.model.api.Expression;
 import org.eclipse.birt.report.model.api.ReportDesignHandle;
 import org.eclipse.birt.report.model.api.ScalarParameterHandle;
 import org.eclipse.birt.report.model.api.SlotHandle;
@@ -50,6 +49,7 @@ import org.eclipse.birt.report.model.api.elements.DesignChoiceConstants;
 public class WhereClauseBinding extends InnoventFunction {
 	private static final Logger logger = Logger.getLogger(BindParameters.class.getName());
 
+	@SuppressWarnings("rawtypes")
 	public Object execute(Object[] arguments, IScriptFunctionContext context) throws BirtException {
 		if (arguments.length < 1)
 			throw new BirtException(InnoventFunctionFactory.plugin_id, "No reportContext supplied to ConvertFilters",
@@ -63,7 +63,7 @@ public class WhereClauseBinding extends InnoventFunction {
 		logger.fine("Extend Where Clause: " + dataSet.getName() + " " + oper + " " + dataType + " " + paramNames);
 		final String[] paramArray = paramNames.split(",");
 		final String paramOne = paramArray[0];
-		final String paramTwo = paramArray.length > 1 ? paramArray[1] : "";
+//		final String paramTwo = paramArray.length > 1 ? paramArray[1] : "";
 		
 		ReportDesignHandle designHandle = (ReportDesignHandle) rptContext.getReportRunnable().getDesignHandle();
 		SlotHandle paramSlot = designHandle.getParameters();

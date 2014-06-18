@@ -25,7 +25,6 @@ import org.eclipse.birt.report.engine.api.script.IReportContext;
 import org.eclipse.birt.report.model.api.DesignElementHandle;
 import org.eclipse.birt.report.model.api.ModuleHandle;
 import org.eclipse.birt.report.model.api.ReportDesignHandle;
-import org.eclipse.birt.report.model.api.SlotHandle;
 
 /**
  * Utility function that will add a ReportItem from a library into your report.
