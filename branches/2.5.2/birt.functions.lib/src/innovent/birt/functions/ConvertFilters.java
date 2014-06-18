@@ -84,7 +84,7 @@ public class ConvertFilters extends InnoventFunction {
 		Boolean debug = false;
 		if (arguments.length == 2)
 			debug = (Boolean) arguments[1];
-		
+
 		ReportDesignHandle designHandle = (ReportDesignHandle) rptContext.getReportRunnable().getDesignHandle();
 		List<FilterConverter> foundFilterConverts = new ArrayList<FilterConverter>();
 		@SuppressWarnings("unchecked")
@@ -159,7 +159,7 @@ public class ConvertFilters extends InnoventFunction {
 	private void removeParameters(IReportContext rptContext) throws SemanticException {
 		List<ScalarParameterHandle> dropItems = new ArrayList<ScalarParameterHandle>();
 		SlotHandle params = rptContext.getDesignHandle().getParameters();
-		
+
 		@SuppressWarnings("rawtypes")
 		Iterator pIter = params.iterator();
 		//find any parameters that are designated for removal
@@ -176,7 +176,7 @@ public class ConvertFilters extends InnoventFunction {
 		for (ScalarParameterHandle sph : dropItems) {
 			params.drop(sph);
 		}
-		
+
 		// Once the parameter has been removed
 		// need to clean up the beforeOpen method to remove code bindings
 		@SuppressWarnings("unchecked")
@@ -209,7 +209,7 @@ public class ConvertFilters extends InnoventFunction {
 	}
 
 	private void handleFilterBoundParams(IReportContext rptContext, FilterCondition fc) throws NameException {
-		
+
 		// Test to see if this is a parameterized FilterCondition
 		String expVals = fc.getValue1ExpressionList().toString();
 		if (expVals.indexOf("?") < 0) {
@@ -217,26 +217,26 @@ public class ConvertFilters extends InnoventFunction {
 			return;
 		}
 
-		String paramName = expVals.substring(expVals.indexOf("?")+1,expVals.indexOf("]"));
+		String paramName = expVals.substring(expVals.indexOf("?") + 1, expVals.indexOf("]"));
 		ScalarParameterHandle usedParam = null;
-		SlotHandle paramHdls  = rptContext.getDesignHandle().getParameters();
+		SlotHandle paramHdls = rptContext.getDesignHandle().getParameters();
 		@SuppressWarnings("unchecked")
 		Iterator<ScalarParameterHandle> pIter = paramHdls.iterator();
 		while (pIter.hasNext()) {
 			usedParam = null;
 			usedParam = pIter.next();
-			if(usedParam != null && usedParam.getName().equalsIgnoreCase(paramName)){
+			if (usedParam != null && usedParam.getName().equalsIgnoreCase(paramName)) {
 				break;
 			}
 		}
-		
+
 		if (usedParam == null)
 			return;
-		
+
 		// If we change the name to match our naming, we should match it
 		String newParamName = fc.getExpr().substring(1, fc.getExpr().length() - 1);
 		usedParam.setName(newParamName);
-		
+
 		// Also change default values on parameter, and expressions on filter to match
 		@SuppressWarnings("unchecked")
 		List<Object> paramDefaultVals = usedParam.getDefaultValueList();
@@ -250,7 +250,7 @@ public class ConvertFilters extends InnoventFunction {
 		fc.setValue1(newVals);
 		String vals = newVals.toString();
 		rptContext.setParameterValue(newParamName, vals.substring(1, vals.length() - 1));
-		
+
 		return;
 	}
 
@@ -406,6 +406,7 @@ public class ConvertFilters extends InnoventFunction {
 		private String dataType = DesignChoiceConstants.PARAM_TYPE_STRING;
 		private Map<String, String> params = new HashMap<String, String>();
 
+		@SuppressWarnings("unchecked")
 		FilterConverter(FilterCondition fc, DataSetHandle dataSetHdl) {
 			this.fc = fc;
 			this.dataSetName = dataSetHdl.getName();
@@ -479,10 +480,6 @@ public class ConvertFilters extends InnoventFunction {
 
 			}
 			return paramsRequired;
-		}
-
-		Map<String, String> getParams() {
-			return params;
 		}
 
 		String getOperator() {
