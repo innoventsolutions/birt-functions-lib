@@ -73,10 +73,13 @@ public class DisplayParameters extends InnoventFunction {
 			lh.setText("No Parameters Defined");
 			designHandle.getBody().add(lh, 0);
 		}
-
+		
 		GridHandle newGrid = designHandle.getElementFactory().newGridItem(
-				"parameterGrid", 4, paramRefs.size() + 1);
-		newGrid.setWidth("100%");
+				"parameterGrid", 3, paramRefs.size() + 1);
+		//newGrid.setWidth("100%");
+		DesignElementHandle deh = designHandle.getBody().get(0);
+		if(newGrid.getName().equalsIgnoreCase(deh.getName()))
+			deh.drop();
 
 		newGrid.setProperty(IStyleModel.BACKGROUND_COLOR_PROP, "#99B3CC");
 		DesignElementHandle hdrRow = newGrid.getRows().get(0);
@@ -88,7 +91,6 @@ public class DisplayParameters extends InnoventFunction {
 		AddLabelToCell(newGrid, 0, 0, "Name");
 		AddLabelToCell(newGrid, 0, 1, "Prompt");
 		AddLabelToCell(newGrid, 0, 2, "Value");
-		AddLabelToCell(newGrid, 0, 3, "Display Text");
 
 		// for each parameter name, get the parameter value
 		// add the name and value to a hashmap
@@ -96,7 +98,6 @@ public class DisplayParameters extends InnoventFunction {
 		for (ParameterDefn parameterDefn : paramRefs) {
 			String pName = parameterDefn.getName();
 			Object values = rptContext.getParameterValue(pName);
-			Object labels = rptContext.getParameterDisplayText(pName);
 			i++;
 			AddLabelToCell(newGrid, i, 0, pName);
 			AddLabelToCell(newGrid, i, 1, parameterDefn.getPromptText());
@@ -113,19 +114,6 @@ public class DisplayParameters extends InnoventFunction {
 				AddLabelToCell(newGrid, i, 2, sb);
 			} else {
 				AddLabelToCell(newGrid, i, 2, values);
-			}
-			if (labels instanceof Object[]) {
-				StringBuffer sb = new StringBuffer();
-				Object[] pvals = (Object[]) labels;
-				for (int j = 0; j < pvals.length; j++) {
-					sb.append(pvals[j]);
-					if (j < pvals.length - 1) {
-						sb.append("\n");
-					}
-				}
-				AddLabelToCell(newGrid, i, 3, sb);
-			} else {
-				AddLabelToCell(newGrid, i, 3, labels);
 			}
 		}
 

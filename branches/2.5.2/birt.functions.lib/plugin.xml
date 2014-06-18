@@ -137,6 +137,49 @@
                   name="ChartScriptContext">
             </Argument>
          </Function>
+         <Function
+               name="ConvertFilters">
+            <DataType
+                  value="String">
+            </DataType>
+            <Argument
+                  desc="The Report Context"
+                  isOptional="false"
+                  name="reportContext">
+            </Argument>
+         </Function>
+         <Function
+               desc="Add a Clause to the Where based on Parameter values"
+               isConstructor="false"
+               isStatic="true"
+               name="WhereClauseBinding"
+               variableArguments="false">
+            <DataType
+                  value="String">
+            </DataType>
+            <Argument
+                  desc="The Report Context"
+                  isOptional="false"
+                  name="reportContext">
+            </Argument>
+            <Argument
+                  desc="The DataSet that is being modified"
+                  isOptional="false"
+                  name="dataSet">
+            </Argument>
+            <Argument
+                  desc="The operation to be performed"
+                  name="operator">
+            </Argument>
+            <Argument
+                  desc="DataType for the Field"
+                  name="dataType">
+            </Argument>
+            <Argument
+                  desc="The names of the parameters that will be bound, if more than one parameter this should be a comma delimited list."
+                  name="parameterNames">
+            </Argument>
+         </Function>
          
       </Category>
    </extension>
