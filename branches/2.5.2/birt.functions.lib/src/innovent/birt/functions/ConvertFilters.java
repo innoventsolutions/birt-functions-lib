@@ -79,7 +79,7 @@ public class ConvertFilters extends InnoventFunction {
 			return null;
 		}
 
-		//removeParameters(rptContext);
+		removeParameters(rptContext);
 
 		Boolean debug = false;
 		if (arguments.length == 2)
@@ -136,7 +136,8 @@ public class ConvertFilters extends InnoventFunction {
 			try {
 
 				String rptName = rptContext.getReportRunnable().getReportName();
-				designHandle.saveAs(rptName + ".debug");
+				rptName = rptName.substring(0, rptName.lastIndexOf('.'));
+				designHandle.saveAs(rptName + ".debug.rptdesign");
 			} catch (IOException e) {
 				//TODO better handling of saved file
 				e.printStackTrace();
@@ -149,13 +150,11 @@ public class ConvertFilters extends InnoventFunction {
 	}
 
 	/**
-	 * Skeleton code to remove parameters that have been added.  
-	 * Issue with parameterNames that are re-used
+	 * Removes parameters if the value of parameter is DELETE
 	 * 
 	 * @param rptContext
 	 * @throws SemanticException
 	 */
-	@SuppressWarnings("unused")
 	private void removeParameters(IReportContext rptContext) throws SemanticException {
 		List<ScalarParameterHandle> dropItems = new ArrayList<ScalarParameterHandle>();
 		SlotHandle params = rptContext.getDesignHandle().getParameters();
@@ -166,7 +165,7 @@ public class ConvertFilters extends InnoventFunction {
 		while (pIter.hasNext()) {
 			ScalarParameterHandle sph = (ScalarParameterHandle) pIter.next();
 			Object pVal = rptContext.getParameterValue(sph.getName());
-			if ("----".equalsIgnoreCase(pVal.toString())) {
+			if ("DELETE".equalsIgnoreCase(pVal.toString().trim())) {
 				dropItems.add(sph);
 			}
 		}
@@ -184,7 +183,6 @@ public class ConvertFilters extends InnoventFunction {
 		for (DataSetHandle dsh : dsAll) {
 			String b4open = dsh.getBeforeOpen();
 			for (ScalarParameterHandle sph : dropItems) {
-				System.out.println("");
 				dsh.setBeforeOpen(removeParamBind(b4open, sph.getName()));
 			}
 		}
@@ -192,17 +190,17 @@ public class ConvertFilters extends InnoventFunction {
 	}
 
 	private String removeParamBind(String b4open, String paramName) {
-		String[] modClause = b4open.split("\n");
+		String searchParam = "'" + paramName + "'";
+		String[] modClauseArray = b4open.split("\n");
 		StringBuffer modString = new StringBuffer();
-		for (int i = 0; i < modClause.length; i++) {
-			String look4 = modClause[i];
-
-			if (look4.length() == 0 || look4.indexOf(paramName + "'") > 0) {
+		for (int i = 0; i < modClauseArray.length; i++) {
+			String aClause = modClauseArray[i];
+			if (aClause.length() == 0 || aClause.indexOf(searchParam) > 0) {
 				// don't add this back in
 				// the space at the end is to handle io:fieldName and io:fieldName__1
 				continue;
 			}
-			modString.append(modClause[i]).append("\n");
+			modString.append(modClauseArray[i]).append("\n");
 		}
 
 		return modString.toString();
