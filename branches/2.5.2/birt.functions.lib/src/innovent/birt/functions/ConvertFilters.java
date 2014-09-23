@@ -47,6 +47,7 @@ import org.eclipse.birt.report.model.api.command.NameException;
 import org.eclipse.birt.report.model.api.elements.DesignChoiceConstants;
 import org.eclipse.birt.report.model.api.elements.structures.FilterCondition;
 import org.eclipse.birt.report.model.api.elements.structures.ResultSetColumn;
+import org.eclipse.birt.report.model.api.elements.structures.SelectionChoice;
 
 /**
  * Edits all the data sets in the report. If a filter is found on an ODA the
@@ -111,7 +112,8 @@ public class ConvertFilters extends InnoventFunction {
 		for (FilterConverter foundConvert : foundFilterConverts) {
 			Map<String, String> paramsToAdd = foundConvert.testParameters(rptContext);
 			for (Entry<String, String> createParam : paramsToAdd.entrySet()) {
-				ScalarParameterHandle sph = createScalarParameter(ef, createParam.getKey(), createParam.getValue());
+				ScalarParameterHandle sph = createScalarParameter(ef, createParam.getKey(), createParam.getValue(),
+						foundConvert.getPromptText());
 				paramSlot.add(sph);
 				rptContext.setParameterValue(createParam.getKey(), createParam.getValue());
 			}
@@ -130,6 +132,30 @@ public class ConvertFilters extends InnoventFunction {
 			}
 
 			addWhereClauseBinding(dataSetHandle, validConvert);
+		}
+
+		/*
+		 * Finally walk through parameters and anything that is marked as Dropped should be dropped
+		 * Dropped are parameters that were original tied to a filter, that we will no longer use.
+		 *  
+		 */
+		List<ScalarParameterHandle> dropItems = new ArrayList<ScalarParameterHandle>();
+		SlotHandle params = rptContext.getDesignHandle().getParameters();
+		@SuppressWarnings("rawtypes")
+		Iterator pIter = params.iterator();
+		//find any parameters that are designated for removal
+		while (pIter.hasNext()) {
+			Object obj = (Object) pIter.next();
+			if (obj instanceof ScalarParameterHandle) {
+				ScalarParameterHandle sph = (ScalarParameterHandle) obj;
+				if (sph.getName().startsWith("DROP_")) {
+					dropItems.add(sph);
+				}
+			}
+
+		}
+		for (ScalarParameterHandle dropParam : dropItems) {
+			params.drop(dropParam);
 		}
 
 		if (debug) {
@@ -163,10 +189,14 @@ public class ConvertFilters extends InnoventFunction {
 		Iterator pIter = params.iterator();
 		//find any parameters that are designated for removal
 		while (pIter.hasNext()) {
-			ScalarParameterHandle sph = (ScalarParameterHandle) pIter.next();
-			Object pVal = rptContext.getParameterValue(sph.getName());
-			if ("DELETE".equalsIgnoreCase(pVal.toString().trim())) {
-				dropItems.add(sph);
+			Object obj = (Object) pIter.next();
+			System.out.println(obj.getClass().toString());
+			if (obj instanceof ScalarParameterHandle) {
+				ScalarParameterHandle sph = (ScalarParameterHandle) obj;
+				Object pVal = rptContext.getParameterValue(sph.getName());
+				if ("DELETE".equalsIgnoreCase(pVal.toString().trim())) {
+					dropItems.add(sph);
+				}
 			}
 		}
 		if (dropItems.size() == 0)
@@ -206,13 +236,13 @@ public class ConvertFilters extends InnoventFunction {
 		return modString.toString();
 	}
 
-	private void handleFilterBoundParams(IReportContext rptContext, FilterCondition fc) throws NameException {
+	private String handleFilterBoundParams(IReportContext rptContext, FilterCondition fc) throws NameException {
 
 		// Test to see if this is a parameterized FilterCondition
 		String expVals = fc.getValue1ExpressionList().toString();
 		if (expVals.indexOf("?") < 0) {
 			// not parametrized
-			return;
+			return null;
 		}
 
 		String paramName = expVals.substring(expVals.indexOf("?") + 1, expVals.indexOf("]"));
@@ -229,27 +259,22 @@ public class ConvertFilters extends InnoventFunction {
 		}
 
 		if (usedParam == null)
-			return;
+			return null;
 
-		// If we change the name to match our naming, we should match it
-		String newParamName = fc.getExpr().substring(1, fc.getExpr().length() - 1);
-		usedParam.setName(newParamName);
+		usedParam.setName("DROP_" + usedParam.getName());
 
-		// Also change default values on parameter, and expressions on filter to match
-		@SuppressWarnings("unchecked")
-		List<Object> paramDefaultVals = usedParam.getDefaultValueList();
-		@SuppressWarnings({ "unused", "rawtypes" })
-		List fcVals = fc.getValue1ExpressionList();
+		// If there are multiple values set, they should all be shown in one text box.
 		List<String> newVals = new ArrayList<String>();
-		//fcVals.clear();
-		for (Object object : paramDefaultVals) {
-			newVals.add(object.toString());
+		@SuppressWarnings("unchecked")
+		List<SelectionChoice> lstVals = usedParam.getListProperty("selectionList");
+		for (SelectionChoice selChoice : lstVals) {
+			newVals.add(selChoice.getValue());
 		}
 		fc.setValue1(newVals);
-		String vals = newVals.toString();
-		rptContext.setParameterValue(newParamName, vals.substring(1, vals.length() - 1));
 
-		return;
+		// The prompt text will be returned to the FilterCondition.
+		String promptText = usedParam.getPromptText();
+		return promptText;
 	}
 
 	/**
@@ -279,9 +304,9 @@ public class ConvertFilters extends InnoventFunction {
 			// If user bound a parameter need to handle this situation
 			// we will create a list of parameters that are named using our scheme
 			// with the right default parameters
-			handleFilterBoundParams(rptContext, fc);
+			String promptText = handleFilterBoundParams(rptContext, fc);
 			//Supported condition so continue with processing
-			requiredConverters.add(new FilterConverter(fc, dataSetHdl));
+			requiredConverters.add(new FilterConverter(fc, dataSetHdl, promptText));
 			logger.fine("Converter processed: " + fc.getExpr() + " : " + fc.getOperator());
 		}
 
@@ -358,7 +383,8 @@ public class ConvertFilters extends InnoventFunction {
 		return false;
 	}
 
-	private ScalarParameterHandle createScalarParameter(ElementFactory ef, String paramName, String paramValues) throws SemanticException {
+	private ScalarParameterHandle createScalarParameter(ElementFactory ef, String paramName, String paramValues, String promptText)
+			throws SemanticException {
 		// This is the design element that will show up in future reports.
 		ScalarParameterHandle sph = ef.newScalarParameter(paramName);
 
@@ -371,16 +397,13 @@ public class ConvertFilters extends InnoventFunction {
 		pVals.add(paramValues);
 		sph.setDefaultValueList(pVals);
 		sph.setIsRequired(false);
+		sph.setPromptText(promptText);
 
 		sph.setValueType("static");
 		sph.setDistinct(true);
 		sph.setParamType("simple");
 		sph.setControlType("text-box");
 		sph.setCategory("Unformatted");
-
-		// Automatically will use the ColumnNames Defined in IOB
-		// So these should be relatively business friendly.
-		sph.setPromptText("Enter " + paramName.substring(paramName.indexOf(":") + 1));
 
 		return sph;
 
@@ -403,9 +426,10 @@ public class ConvertFilters extends InnoventFunction {
 		private final String dataSetName;
 		private String dataType = DesignChoiceConstants.PARAM_TYPE_STRING;
 		private Map<String, String> params = new HashMap<String, String>();
+		private final String promptText;
 
 		@SuppressWarnings("unchecked")
-		FilterConverter(FilterCondition fc, DataSetHandle dataSetHdl) {
+		FilterConverter(FilterCondition fc, DataSetHandle dataSetHdl, String promptText) {
 			this.fc = fc;
 			this.dataSetName = dataSetHdl.getName();
 
@@ -413,6 +437,14 @@ public class ConvertFilters extends InnoventFunction {
 			// currently only handle simple one value parameters
 			List<ResultSetColumn> columnList = (List<ResultSetColumn>) dataSetHdl.getProperty(DataSetHandle.RESULT_SET_PROP);
 			String paramName = fc.getExpr().substring(1, fc.getExpr().length() - 1);
+
+			// Add display name to handle conditions where user binds a parameter to the filter
+			if (promptText != null) {
+				this.promptText = promptText;
+			} else {
+				this.promptText = "Enter " + paramName.substring(paramName.indexOf(":") + 1);
+			}
+
 			for (ResultSetColumn col : columnList) {
 				if (paramName.equalsIgnoreCase(col.getColumnName())) {
 					dataType = col.getDataType();
@@ -442,6 +474,10 @@ public class ConvertFilters extends InnoventFunction {
 				return "No Filter Condition";
 
 			return fc.getExpr() + " " + fc.getOperator() + " " + fc.getValue1ExpressionList().toString();
+		}
+
+		public String getPromptText() {
+			return this.promptText;
 		}
 
 		Map<String, String> testParameters(IReportContext rptContext) {
