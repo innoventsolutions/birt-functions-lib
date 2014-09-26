@@ -38,7 +38,6 @@ import org.eclipse.birt.report.engine.api.script.IReportContext;
 import org.eclipse.birt.report.model.api.DataSetHandle;
 import org.eclipse.birt.report.model.api.ElementFactory;
 import org.eclipse.birt.report.model.api.Expression;
-import org.eclipse.birt.report.model.api.OdaDataSetHandle;
 import org.eclipse.birt.report.model.api.ReportDesignHandle;
 import org.eclipse.birt.report.model.api.ScalarParameterHandle;
 import org.eclipse.birt.report.model.api.SlotHandle;
@@ -91,13 +90,12 @@ public class ConvertFilters extends InnoventFunction {
 		@SuppressWarnings("unchecked")
 		final List<DataSetHandle> dsAll = designHandle.getAllDataSets();
 		for (DataSetHandle dataSetHandle : dsAll) {
-			if (dataSetHandle instanceof OdaDataSetHandle) {
-				try {
-					foundFilterConverts.addAll(findFiltersToConvert(rptContext, (OdaDataSetHandle) dataSetHandle));
-				} catch (SemanticException ex) {
-					logger.warning("Failure while ConvertingFilter on DataSet " + dataSetHandle.getName() + " " + ex.getMessage());
-					ex.printStackTrace();
-				}
+			try {
+				List<FilterConverter> convertFilters = findFiltersToConvert(rptContext, dataSetHandle);
+				foundFilterConverts.addAll(convertFilters);
+			} catch (SemanticException ex) {
+				logger.warning("Failure while ConvertingFilter on DataSet " + dataSetHandle.getName() + " " + ex.getMessage());
+				ex.printStackTrace();
 			}
 		}
 
@@ -249,12 +247,14 @@ public class ConvertFilters extends InnoventFunction {
 		ScalarParameterHandle usedParam = null;
 		SlotHandle paramHdls = rptContext.getDesignHandle().getParameters();
 		@SuppressWarnings("unchecked")
-		Iterator<ScalarParameterHandle> pIter = paramHdls.iterator();
+		Iterator<Object> pIter = paramHdls.iterator();
 		while (pIter.hasNext()) {
-			usedParam = null;
-			usedParam = pIter.next();
-			if (usedParam != null && usedParam.getName().equalsIgnoreCase(paramName)) {
-				break;
+			Object obj = pIter.next();
+			if (obj instanceof ScalarParameterHandle) {
+				usedParam = (ScalarParameterHandle) obj;
+				if (usedParam != null && usedParam.getName().equalsIgnoreCase(paramName)) {
+					break;
+				}
 			}
 		}
 
@@ -285,7 +285,7 @@ public class ConvertFilters extends InnoventFunction {
 	 * @param dataSetHdl
 	 * @throws SemanticException
 	 */
-	private List<FilterConverter> findFiltersToConvert(IReportContext rptContext, OdaDataSetHandle dataSetHdl) throws SemanticException {
+	private List<FilterConverter> findFiltersToConvert(IReportContext rptContext, DataSetHandle dataSetHdl) throws SemanticException {
 
 		@SuppressWarnings("unchecked")
 		List<FilterCondition> filterConditions = (List<FilterCondition>) dataSetHdl.getProperty("filter");

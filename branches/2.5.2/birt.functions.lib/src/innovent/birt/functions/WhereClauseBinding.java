@@ -52,8 +52,7 @@ public class WhereClauseBinding extends InnoventFunction {
 	@SuppressWarnings("rawtypes")
 	public Object execute(Object[] arguments, IScriptFunctionContext context) throws BirtException {
 		if (arguments.length < 1)
-			throw new BirtException(InnoventFunctionFactory.plugin_id, "No reportContext supplied to ConvertFilters",
-					new Object[] { "" });
+			throw new BirtException(InnoventFunctionFactory.plugin_id, "No reportContext supplied to ConvertFilters", new Object[] { "" });
 
 		final IReportContext rptContext = getReportContext(arguments[0]);
 		final DataSetInstance dataSet = (DataSetInstance) arguments[1];
@@ -63,46 +62,49 @@ public class WhereClauseBinding extends InnoventFunction {
 		logger.fine("Extend Where Clause: " + dataSet.getName() + " " + oper + " " + dataType + " " + paramNames);
 		final String[] paramArray = paramNames.split(",");
 		final String paramOne = paramArray[0];
-//		final String paramTwo = paramArray.length > 1 ? paramArray[1] : "";
-		
+		//		final String paramTwo = paramArray.length > 1 ? paramArray[1] : "";
+
 		ReportDesignHandle designHandle = (ReportDesignHandle) rptContext.getReportRunnable().getDesignHandle();
 		SlotHandle paramSlot = designHandle.getParameters();
 		ScalarParameterHandle sph = null;
 		for (Iterator pIter = paramSlot.iterator(); pIter.hasNext();) {
-			ScalarParameterHandle aSph = (ScalarParameterHandle) pIter.next();
-			if (aSph.getName().equals(paramOne)) {
-				sph = aSph;
+			Object obj = (Object) pIter.next();
+			if (obj instanceof ScalarParameterHandle) {
+				ScalarParameterHandle aSph = (ScalarParameterHandle) obj;
+				if (aSph.getName().equals(paramOne)) {
+					sph = aSph;
+				}
 			}
 		}
 
 		//TODO Multi-Parameter Support
 		String paramName = sph.getName().replace(':', '.');
 		String paramValues = (String) rptContext.getParameterValue(sph.getName());
-		if (paramValues == null || paramValues.trim().length()==0)
+		if (paramValues == null || paramValues.trim().length() == 0)
 			return "";
-		
+
 		// Name may have been extended
 		int repPoint = paramName.indexOf("__");
-		if (repPoint > 0){
+		if (repPoint > 0) {
 			paramName = paramName.substring(0, repPoint);
 		}
-		
+
 		StringBuffer sqlScript = new StringBuffer();
 		sqlScript.append(checkWhereClause(dataSet));
 		sqlScript.append("\nAND ").append(paramName);
-		
+
 		sqlScript.append(" ").append(oper).append(" ");
-		
-		if (DesignChoiceConstants.MAP_OPERATOR_IN.equalsIgnoreCase(oper)){
+
+		if (DesignChoiceConstants.MAP_OPERATOR_IN.equalsIgnoreCase(oper)) {
 			sqlScript.append(getInClause(dataType, paramValues.trim()));
 			return sqlScript.toString();
 		}
-		
-		if (DesignChoiceConstants.MAP_OPERATOR_LIKE.equalsIgnoreCase(oper)){
+
+		if (DesignChoiceConstants.MAP_OPERATOR_LIKE.equalsIgnoreCase(oper)) {
 			sqlScript.append(getLikeClause(dataType, paramValues.trim()));
 			return sqlScript.toString();
 		}
-		
+
 		return "";
 	}
 
@@ -130,19 +132,20 @@ public class WhereClauseBinding extends InnoventFunction {
 	private StringBuffer addParamValue(final String dataType, String paramValue) {
 
 		StringBuffer sb = new StringBuffer();
-		if(DesignChoiceConstants.PARAM_TYPE_STRING.equalsIgnoreCase(dataType)){
+		if (DesignChoiceConstants.PARAM_TYPE_STRING.equalsIgnoreCase(dataType)) {
 			sb.append("'");
 			sb.append(paramValue.replace('*', '%'));
 			sb.append("'");
 		} else {
 			sb.append(paramValue);
 		}
-		
+
 		return sb;
 	}
 
 	private String checkWhereClause(DataSetInstance dataSet) throws ScriptException {
-		if (!dataSet.getQueryText().toLowerCase().contains("where")) {
+		String qry = dataSet.getQueryText();
+		if (qry != null && !qry.toLowerCase().contains("where")) {
 			//TODO Handle clauses after Where
 			return "\nWHERE 0=0\n";
 		}
