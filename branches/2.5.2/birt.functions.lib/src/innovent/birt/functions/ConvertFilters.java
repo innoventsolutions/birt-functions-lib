@@ -156,6 +156,7 @@ public class ConvertFilters extends InnoventFunction {
 			params.drop(dropParam);
 		}
 
+/*		
 		if (debug) {
 			try {
 
@@ -168,7 +169,7 @@ public class ConvertFilters extends InnoventFunction {
 			}
 		}
 
-		/* END DEBUG */
+		 END DEBUG */
 
 		return null;
 	}
@@ -369,13 +370,13 @@ public class ConvertFilters extends InnoventFunction {
 
 		if (fc.getOperator().equalsIgnoreCase(DesignChoiceConstants.MAP_OPERATOR_LIKE))
 			return true;
-
+/*
 		if (fc.getOperator().equalsIgnoreCase(DesignChoiceConstants.MAP_OPERATOR_NOT_IN))
 			return true;
 
 		if (fc.getOperator().equalsIgnoreCase(DesignChoiceConstants.MAP_OPERATOR_NOT_LIKE))
 			return true;
-
+*/
 		//TODO Does not support composite condition filters.
 		//e.g.  (IN([io_sample:custState], "CA", "NJ")) AND  (IN([io_sample:officeCode], "1", "2")) is True
 
