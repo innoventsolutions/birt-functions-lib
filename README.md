@@ -1,4 +1,4 @@
-BIRT = Business Intelligence and Reporting Tools. It is a top level Eclipse project.
+Business Intelligence and Reporting Tools (BIRT)is a top level Eclipse project.
 
 As an Eclipse project, BIRT is built for extendability. Developers can customize BIRT to support custom controls and behavior through BIRT extension points. Extension points allow complex custom operations to be integrated right into the BIRT UI and scripting language.
 
