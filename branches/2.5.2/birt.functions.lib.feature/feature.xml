@@ -2,7 +2,7 @@
 <feature
       id="birt.functions.lib.feature"
       label="BIRT Functions Library"
-      version="2.6.1.4"
+      version="2.6.1.10"
       provider-name="Innovent Solutions, Inc.">
 
    <description url="http://code.google.com/p/birt-functions-lib/">
@@ -226,7 +226,7 @@ of confidential information.
          id="birt.functions.lib"
          download-size="0"
          install-size="0"
-         version="2.6.1.4"
+         version="0.0.0"
          unpack="false"/>
 
 </feature>
