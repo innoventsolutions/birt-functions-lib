@@ -94,7 +94,8 @@ public class AppendLibraryContentTest {
 		LibraryHandle libraryHandle = new LibraryHandle(library);
 		Mockito.when(library.handle()).thenReturn(libraryHandle);
 
-		// final DesignElementHandle tleh = Mockito.mock(DesignElementHandle.class);
+		// final DesignElementHandle tleh =
+		// Mockito.mock(DesignElementHandle.class);
 		List<Library> listOfLibraries = new ArrayList<Library>();
 		listOfLibraries.add(library);
 		Mockito.when(reportDesign.getLibraries()).thenReturn(listOfLibraries);
@@ -109,11 +110,10 @@ public class AppendLibraryContentTest {
 		} catch (ExtendsException e1) {
 			Assert.fail(e1.toString());
 		}
-
 		SlotHandle bodySlotHandle = Mockito.mock(SlotHandle.class);
-
 		MockReportDesignHandle reportDesignHandle = new MockReportDesignHandle(reportDesign, elementFactory,
 				bodySlotHandle);
+
 		Mockito.when(runnable.getDesignHandle()).thenReturn(reportDesignHandle);
 		IEngineTask engineTask = Mockito.mock(IEngineTask.class);
 		Mockito.when(executionContext.getEngineTask()).thenReturn(engineTask);
@@ -122,6 +122,8 @@ public class AppendLibraryContentTest {
 		Mockito.when(reportContext.getReportRunnable()).thenReturn(runnable);
 		IScriptFunctionExecutor sfe = new AppendLibraryContent();
 		try {
+			// Note: isDataSetEditor works because mockito creates a class that
+			// is NOT named a certain way.
 			sfe.execute(new Object[] { "TestLibraryElement", reportContext }, scriptContext);
 		} catch (BirtException e) {
 			Assert.fail(e.toString());
