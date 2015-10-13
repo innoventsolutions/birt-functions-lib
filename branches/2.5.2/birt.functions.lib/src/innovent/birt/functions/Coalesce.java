@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 2008-2015  Innovent Solutions Inc.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *  Scott Rosenbaum / Steve Schafer, Innovent Solutions, Inc.
+ */
 package innovent.birt.functions;
 
 import org.eclipse.birt.core.exception.BirtException;
