@@ -2,7 +2,6 @@ package innovent.birt.test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.List;
@@ -25,6 +24,8 @@ import org.junit.Test;
  * To run this test you will need to include the birt-runtime classes in the
  * classpath and also build this plugin into a jar and put it in the classpath
  * as well.
+ * 
+ * OR run an eclipse instance from within eclipse.
  * 
  * @author steve
  *
