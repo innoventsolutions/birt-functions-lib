@@ -21,6 +21,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
+ * This test starts a report engine, runs a report, and then checks the output.
+ * 
  * To run this test you will need to include the birt-runtime classes in the
  * classpath and also build this plugin into a jar and put it in the classpath
  * as well.
@@ -72,6 +74,7 @@ public class BindParametersTest {
 				}
 			}
 		} catch (BirtException e) {
+			e.printStackTrace();
 			Assert.fail(e.toString());
 		}
 	}

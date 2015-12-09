@@ -13,6 +13,7 @@ Require-Bundle: org.eclipse.birt.report.engine;bundle-version="2.3.2.0";resoluti
 Export-Package: innovent.birt.aggregations,
  innovent.birt.aggregations.factory,
  innovent.birt.functions,
- innovent.birt.functions.factory
+ innovent.birt.functions.factory,
+ org.mockito
 Bundle-ClassPath: .
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

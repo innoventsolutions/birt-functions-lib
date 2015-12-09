@@ -26,10 +26,12 @@ public class ReportEngine {
 		}
 		String resourceDirName = matcher.group(1);
 		if (resourceDirName == null)
-			throw new NullPointerException("property: org.eclipse.birt.rip.resource.dir");
+			throw new NullPointerException(
+					"property: org.eclipse.birt.rip.resource.dir");
 		RESOURCE_DIR = resourceDirName;
 	}
 
+	@SuppressWarnings("unchecked")
 	public static IReportEngine getReportEngine() throws BirtException {
 		if (reportEngine != null) {
 			return reportEngine;
@@ -39,10 +41,12 @@ public class ReportEngine {
 		config.setResourcePath(RESOURCE_DIR);
 		System.out.println("BIRTHome = " + config.getBIRTHome());
 		config.setProperty(EngineConstants.WEBAPP_CLASSPATH_KEY, RESOURCE_DIR);
-		config.getAppContext().put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, ReportEngine.class.getClassLoader());
+		config.getAppContext().put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY,
+				ReportEngine.class.getClassLoader());
 		Platform.startup(config);
 		final IReportEngineFactory factory = (IReportEngineFactory) Platform
-				.createFactoryObject(IReportEngineFactory.EXTENSION_REPORT_ENGINE_FACTORY);
+				.createFactoryObject(
+						IReportEngineFactory.EXTENSION_REPORT_ENGINE_FACTORY);
 		reportEngine = factory.createReportEngine(config);
 		return reportEngine;
 	}
