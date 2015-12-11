@@ -93,25 +93,31 @@ import org.eclipse.birt.report.model.api.elements.structures.OdaDataSetParameter
  * translated.
  */
 public class BindParameters extends InnoventFunction {
-	private static final Logger logger = Logger.getLogger(BindParameters.class.getName());
+	private static final Logger logger = Logger
+			.getLogger(BindParameters.class.getName());
 	private static final String PARAM_TOKEN = "?";
-	private final Pattern pattern = Pattern.compile("/\\* BIND (.*?)\\$([A-Za-z0-9-_#]+)(.*?)\\*/",
+	private final Pattern pattern = Pattern.compile(
+			"/\\* BIND (.*?)\\$([A-Za-z0-9-_#]+)(.*?)\\*/",
 			Pattern.MULTILINE | Pattern.DOTALL);
 	private int paramCount = 0;
 
 	@Override
-	public Object execute(Object[] arguments, IScriptFunctionContext context) throws BirtException {
+	public Object execute(Object[] arguments, IScriptFunctionContext context)
+			throws BirtException {
 		if (arguments.length < 1)
 			throw new BirtException(InnoventFunctionFactory.plugin_id,
-					"No reportContext supplied to ResolveSQLParameters", new Object[] { "" });
-
+					"No reportContext supplied to ResolveSQLParameters",
+					new Object[] { "" });
 		final IReportContext rptContext = getReportContext(arguments[0]);
+		Boolean debug = false;
+		if (arguments.length == 2)
+			debug = (Boolean) arguments[1];
 		// do not run this code if in the dataSet editor
 		if (isDataSetEditor(rptContext)) {
 			return null;
 		}
-
-		ReportDesignHandle designHandle = (ReportDesignHandle) rptContext.getReportRunnable().getDesignHandle();
+		ReportDesignHandle designHandle = (ReportDesignHandle) rptContext
+				.getReportRunnable().getDesignHandle();
 		@SuppressWarnings("unchecked")
 		final List<DataSetHandle> dsAll = designHandle.getAllDataSets();
 		for (DataSetHandle dataSetHandle : dsAll) {
@@ -119,18 +125,17 @@ public class BindParameters extends InnoventFunction {
 				bindParameters(rptContext, (OdaDataSetHandle) dataSetHandle);
 			}
 		}
-
-		/*
-		 * DEBUG modified design to a file
-		 */
-		try {
-			designHandle.saveAs("fred.xml");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (debug) {
+			try {
+				String rptName = rptContext.getReportRunnable().getReportName();
+				rptName = rptName.substring(0, rptName.lastIndexOf('.'));
+				designHandle.saveAs(rptName + ".debug.rptdesign");
+			}
+			catch (IOException e) {
+				// TODO better handling of saved file
+				e.printStackTrace();
+			}
 		}
-		/* END DEBUG */
-
 		return null;
 	}
 
@@ -142,17 +147,17 @@ public class BindParameters extends InnoventFunction {
 	 * @param odaDataSetHandle
 	 * @throws SemanticException
 	 */
-	private void bindParameters(IReportContext rptContext, OdaDataSetHandle odaDataSetHandle) throws SemanticException {
+	private void bindParameters(IReportContext rptContext,
+			OdaDataSetHandle odaDataSetHandle) throws SemanticException {
 		String sqlText = odaDataSetHandle.getQueryText();
 		// NOTE: if "?" is the last character in the string, the last empty
 		// part
 		// is excluded
 		if (sqlText.endsWith("?"))
 			sqlText += "\n";
-
-		DynamicQueryText qryTextObject = new DynamicQueryText(rptContext, odaDataSetHandle, pattern);
+		DynamicQueryText qryTextObject = new DynamicQueryText(rptContext,
+				odaDataSetHandle, pattern);
 		String newSql = qryTextObject.processQueryText(sqlText);
-
 		logger.info("ResolveSQLParameters, translated query = " + newSql);
 		odaDataSetHandle.setQueryText(newSql);
 		reOrderParameters(odaDataSetHandle);
@@ -169,7 +174,8 @@ public class BindParameters extends InnoventFunction {
 	 */
 	private void reOrderParameters(OdaDataSetHandle curDataSet) {
 		@SuppressWarnings("unchecked")
-		Iterator<OdaDataSetParameterHandle> params = curDataSet.parametersIterator();
+		Iterator<OdaDataSetParameterHandle> params = curDataSet
+				.parametersIterator();
 		int pos = 0;
 		while (params.hasNext()) {
 			pos++;
@@ -177,7 +183,8 @@ public class BindParameters extends InnoventFunction {
 			if (obj instanceof OdaDataSetParameterHandle) {
 				OdaDataSetParameterHandle handle = (OdaDataSetParameterHandle) obj;
 				handle.setPosition(pos);
-				logger.finest(pos + " " + handle.getName() + " = " + handle.getDefaultValue());
+				logger.finest(pos + " " + handle.getName() + " = "
+						+ handle.getDefaultValue());
 			}
 		}
 	}
@@ -207,14 +214,16 @@ public class BindParameters extends InnoventFunction {
 		final OdaDataSetHandle odaDataSetHandle;
 		final Pattern pattern;
 
-		public DynamicQueryText(final IReportContext rptContext, final OdaDataSetHandle odaDataSetHandle,
+		public DynamicQueryText(final IReportContext rptContext,
+				final OdaDataSetHandle odaDataSetHandle,
 				final Pattern pattern) {
 			this.rptContext = rptContext;
 			this.odaDataSetHandle = odaDataSetHandle;
 			this.pattern = pattern;
 		}
 
-		public String processQueryText(final String sqlText) throws SemanticException {
+		public String processQueryText(final String sqlText)
+				throws SemanticException {
 			originalParamIndex = 0;
 			addedParamCount = 0;
 			sb = new StringBuffer();
@@ -226,7 +235,8 @@ public class BindParameters extends InnoventFunction {
 			return sb.toString();
 		}
 
-		private final void processSqlPart(String part) throws SemanticException {
+		private final void processSqlPart(String part)
+				throws SemanticException {
 			sb.append(paramToken);
 			paramToken = PARAM_TOKEN;
 			final Matcher matcher = pattern.matcher(part);
@@ -243,7 +253,8 @@ public class BindParameters extends InnoventFunction {
 						String sep = "";
 						int subParamCount = 0;
 						for (Object subParamObject : paramObjectArray) {
-							if (addParameterBinding(odaDataSetHandle, newParamIndex, subParamObject)) {
+							if (addParameterBinding(odaDataSetHandle,
+									newParamIndex, subParamObject)) {
 								subsb.append(sep);
 								sep = ", ";
 								subsb.append(PARAM_TOKEN);
@@ -252,10 +263,14 @@ public class BindParameters extends InnoventFunction {
 						}
 						if (subParamCount > 0) {
 							addedParamCount += subParamCount;
-							matcher.appendReplacement(sb, prefix + subsb + suffix);
+							matcher.appendReplacement(sb,
+									prefix + subsb + suffix);
 						}
-					} else if (addParameterBinding(odaDataSetHandle, newParamIndex, paramObject)) {
-						matcher.appendReplacement(sb, prefix + PARAM_TOKEN + suffix);
+					}
+					else if (addParameterBinding(odaDataSetHandle,
+							newParamIndex, paramObject)) {
+						matcher.appendReplacement(sb,
+								prefix + PARAM_TOKEN + suffix);
 						addedParamCount++;
 					}
 				}
@@ -277,79 +292,98 @@ public class BindParameters extends InnoventFunction {
 		 * @return
 		 * @throws SemanticException
 		 */
-		private boolean addParameterBinding(OdaDataSetHandle odaDataSetHandle, int newParamIndex, Object paramObject)
-				throws SemanticException {
+		private boolean addParameterBinding(OdaDataSetHandle odaDataSetHandle,
+				int newParamIndex, Object paramObject)
+						throws SemanticException {
 			if (paramObject instanceof Double) {
-				addParameterBinding(odaDataSetHandle, newParamIndex, "float", paramObject.toString());
+				addParameterBinding(odaDataSetHandle, newParamIndex, "float",
+						paramObject.toString());
 				return true;
 			}
 			if (paramObject instanceof Date) {
 				Calendar calendar = Calendar.getInstance();
 				calendar.setTimeInMillis(((Date) paramObject).getTime());
-				if (calendar.get(Calendar.YEAR) == 0 && calendar.get(Calendar.MONTH) == 0
+				if (calendar.get(Calendar.YEAR) == 0
+						&& calendar.get(Calendar.MONTH) == 0
 						&& calendar.get(Calendar.DAY_OF_MONTH) == 0) {
-					SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSS");
-					addParameterBinding(odaDataSetHandle, newParamIndex, "time", dateFormat.format((Date) paramObject));
-				} else if (calendar.get(Calendar.HOUR) == 0 && calendar.get(Calendar.MINUTE) == 0
-						&& calendar.get(Calendar.SECOND) == 0 && calendar.get(Calendar.MILLISECOND) == 0) {
-					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					SimpleDateFormat dateFormat = new SimpleDateFormat(
+							"HH:mm:ss.SSS");
+					addParameterBinding(odaDataSetHandle, newParamIndex, "time",
+							dateFormat.format((Date) paramObject));
+				}
+				else if (calendar.get(Calendar.HOUR) == 0
+						&& calendar.get(Calendar.MINUTE) == 0
+						&& calendar.get(Calendar.SECOND) == 0
+						&& calendar.get(Calendar.MILLISECOND) == 0) {
+					SimpleDateFormat dateFormat = new SimpleDateFormat(
+							"yyyy-MM-dd");
 					addParameterBinding(odaDataSetHandle, newParamIndex, "date",
 							quote(dateFormat.format((Date) paramObject)));
-				} else {
-					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-					addParameterBinding(odaDataSetHandle, newParamIndex, "datetime",
+				}
+				else {
+					SimpleDateFormat dateFormat = new SimpleDateFormat(
+							"yyyy-MM-dd HH:mm:ss.SSS");
+					addParameterBinding(odaDataSetHandle, newParamIndex,
+							"datetime",
 							quote(dateFormat.format((Date) paramObject)));
 				}
 				return true;
 			}
 			if (paramObject instanceof Boolean) {
-				addParameterBinding(odaDataSetHandle, newParamIndex, "boolean", paramObject.toString());
+				addParameterBinding(odaDataSetHandle, newParamIndex, "boolean",
+						paramObject.toString());
 				return true;
 			}
 			if (paramObject instanceof BigDecimal) {
-				addParameterBinding(odaDataSetHandle, newParamIndex, "decimal", paramObject.toString());
+				addParameterBinding(odaDataSetHandle, newParamIndex, "decimal",
+						paramObject.toString());
 				return true;
 			}
 			if (paramObject instanceof Integer) {
-				addParameterBinding(odaDataSetHandle, newParamIndex, "integer", paramObject.toString());
+				addParameterBinding(odaDataSetHandle, newParamIndex, "integer",
+						paramObject.toString());
 				return true;
 			}
 			if (paramObject instanceof String) {
 				String string = (String) paramObject;
 				if ("null".equals(string))
 					return false;
-				addParameterBinding(odaDataSetHandle, newParamIndex, "string", quote(string));
+				addParameterBinding(odaDataSetHandle, newParamIndex, "string",
+						quote(string));
 				return true;
 			}
 			if (paramObject != null) {
-				addParameterBinding(odaDataSetHandle, newParamIndex, "string", quote(paramObject.toString()));
+				addParameterBinding(odaDataSetHandle, newParamIndex, "string",
+						quote(paramObject.toString()));
 				return true;
 			}
 			return false;
 		}
 
 		private String quote(String string) {
-			return "\"" + string.replace("\\", "\\\\").replace("\"", "\\\"") + "\"";
+			return "\"" + string.replace("\\", "\\\\").replace("\"", "\\\"")
+					+ "\"";
 		}
 
-		private void addParameterBinding(OdaDataSetHandle odaDataSetHandle, int paramIndex, String dataType,
-				String dataValue) throws SemanticException {
-			OdaDataSetParameter parameter = StructureFactory.createOdaDataSetParameter();
+		private void addParameterBinding(OdaDataSetHandle odaDataSetHandle,
+				int paramIndex, String dataType, String dataValue)
+						throws SemanticException {
+			OdaDataSetParameter parameter = StructureFactory
+					.createOdaDataSetParameter();
 			parameter.setName("rsp_param_" + paramCount++);
 			parameter.setPosition(paramIndex);
 			parameter.setDataType(dataType);
-
 			// no longer works. Need to use new format to add as an expression
 			// parameter.setDefaultValue(dataValue);
-			Expression expr = new Expression(dataValue, ExpressionType.JAVASCRIPT);
-			parameter.setExpressionProperty(OdaDataSetParameter.DEFAULT_VALUE_MEMBER, expr);
-
+			Expression expr = new Expression(dataValue,
+					ExpressionType.JAVASCRIPT);
+			parameter.setExpressionProperty(
+					OdaDataSetParameter.DEFAULT_VALUE_MEMBER, expr);
 			parameter.setIsInput(true);
 			parameter.setIsOutput(false);
-			PropertyHandle parameterHandle = odaDataSetHandle.getPropertyHandle(DataSetHandle.PARAMETERS_PROP);
+			PropertyHandle parameterHandle = odaDataSetHandle
+					.getPropertyHandle(DataSetHandle.PARAMETERS_PROP);
 			parameterHandle.insertItem(parameter, paramIndex);
 		}
-
 	}
-
 }

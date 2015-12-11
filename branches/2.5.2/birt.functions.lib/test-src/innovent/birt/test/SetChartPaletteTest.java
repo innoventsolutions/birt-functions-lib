@@ -22,47 +22,41 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import innovent.birt.functions.BindParameters;
+import innovent.birt.functions.SetChartPalette;
 
-public class BindParametersTest {
+/**
+ * @author steve
+ *
+ */
+public class SetChartPaletteTest {
 	/**
-	 * Test no arguments
+	 * Test passing no arguments
 	 */
 	@Test
-	public void testExecut0() {
-		BindParameters bindParameters = new BindParameters();
+	public void testExecute0() {
 		IScriptFunctionContext scriptContext = Mockito
 				.mock(IScriptFunctionContext.class);
+		SetChartPalette setChartPalette = new SetChartPalette();
 		try {
-			bindParameters.execute(new Object[] {}, scriptContext);
+			setChartPalette.execute(new Object[] {}, scriptContext);
+		}
+		catch (ArrayIndexOutOfBoundsException e) {
 		}
 		catch (BirtException e) {
-			Assert.assertEquals(
-					"No reportContext supplied to ResolveSQLParameters",
-					e.getMessage());
+			Assert.fail("Failed to execute: " + e);
 		}
 	}
 
 	/**
-	 * This test starts a report engine, runs a report, and then checks the
-	 * output.
-	 * 
-	 * To run this test you will need to include the birt-runtime classes in the
-	 * classpath and also build this plugin into a jar and put it in the
-	 * classpath as well.
-	 * 
-	 * OR run an eclipse instance from within eclipse.
-	 * 
-	 * @author steve
-	 *
+	 * Test passing reportContext
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testExecute() throws UnsupportedEncodingException {
+	public void testExecute1() {
 		try {
 			final IReportEngine reportEngine = ReportEngine.getReportEngine();
-			final InputStream is = this.getClass()
-					.getResourceAsStream("/reports/test_bind_params.rptdesign");
+			final InputStream is = this.getClass().getResourceAsStream(
+					"/reports/test_palette.rptdesign");
 			final IReportRunnable design = reportEngine.openReportDesign(is);
 			final IGetParameterDefinitionTask paramTask = reportEngine
 					.createGetParameterDefinitionTask(design);
@@ -85,8 +79,7 @@ public class BindParametersTest {
 					errors = rrTask.getErrors();
 					String output = os.toString("utf-8");
 					System.out.println(output);
-					Assert.assertTrue(
-							output.indexOf("Australian Collectors, Co.") >= 0);
+					// not much we can test, really
 				}
 				finally {
 					rrTask.close();

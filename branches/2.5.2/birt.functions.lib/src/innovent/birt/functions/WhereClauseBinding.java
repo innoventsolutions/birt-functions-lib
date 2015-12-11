@@ -44,7 +44,7 @@ public class WhereClauseBinding extends InnoventFunction {
 	@SuppressWarnings("rawtypes")
 	public Object execute(Object[] arguments, IScriptFunctionContext context) throws BirtException {
 		if (arguments.length < 1)
-			throw new BirtException(InnoventFunctionFactory.plugin_id, "No reportContext supplied to ConvertFilters", new Object[] { "" });
+			throw new BirtException(InnoventFunctionFactory.plugin_id, "No reportContext supplied to WhereClauseBinding", new Object[] { "" });
 
 		final IReportContext rptContext = getReportContext(arguments[0]);
 		final DataSetInstance dataSet = (DataSetInstance) arguments[1];
@@ -68,6 +68,9 @@ public class WhereClauseBinding extends InnoventFunction {
 				}
 			}
 		}
+
+		if(sph == null)
+			return "";
 
 		//TODO Multi-Parameter Support
 		String paramName = sph.getName().replace(':', '.');

@@ -8,7 +8,7 @@
     <property name="imageDPI">96</property>
     <list-property name="cssStyleSheets">
         <structure>
-            <property name="fileName">test-res/test.css</property>
+            <property name="fileName">test-res/reports/test.css</property>
             <property name="useExternalCss">false</property>
         </structure>
     </list-property>
@@ -1021,113 +1021,6 @@ where 0 = 0
         </simple-master-page>
     </page-setup>
     <body>
-        <table id="7">
-            <property name="dataSet">Data Set</property>
-            <list-property name="boundDataColumns">
-                <structure>
-                    <property name="name">CUSTOMERNUMBER</property>
-                    <text-property name="displayName">CUSTOMERNUMBER</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["CUSTOMERNUMBER"]</expression>
-                    <property name="dataType">integer</property>
-                </structure>
-                <structure>
-                    <property name="name">CUSTOMERNAME</property>
-                    <text-property name="displayName">CUSTOMERNAME</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["CUSTOMERNAME"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
-            </list-property>
-            <column id="21"/>
-            <column id="22"/>
-            <header>
-                <row id="8">
-                    <cell id="9">
-                        <label id="10">
-                            <text-property name="text">CUSTOMERNUMBER</text-property>
-                        </label>
-                    </cell>
-                    <cell id="11">
-                        <label id="12">
-                            <text-property name="text">CUSTOMERNAME</text-property>
-                        </label>
-                    </cell>
-                </row>
-            </header>
-            <detail>
-                <row id="13">
-                    <cell id="14">
-                        <data id="15">
-                            <property name="resultSetColumn">CUSTOMERNUMBER</property>
-                        </data>
-                    </cell>
-                    <cell id="16">
-                        <data id="17">
-                            <property name="resultSetColumn">CUSTOMERNAME</property>
-                        </data>
-                    </cell>
-                </row>
-            </detail>
-            <footer>
-                <row id="18">
-                    <cell id="19"/>
-                    <cell id="20"/>
-                </row>
-            </footer>
-        </table>
-        <table id="24">
-            <property name="dataSet">Data Set1</property>
-            <list-property name="boundDataColumns">
-                <structure>
-                    <property name="name">PRODUCTLINE</property>
-                    <text-property name="displayName">PRODUCTLINE</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["PRODUCTLINE"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="name">TEXTDESCRIPTION</property>
-                    <text-property name="displayName">TEXTDESCRIPTION</text-property>
-                    <expression name="expression" type="javascript">CustomFunctions.TextWrap(dataSetRow["TEXTDESCRIPTION"], 20);</expression>
-                    <property name="dataType">string</property>
-                    <property name="allowExport">true</property>
-                </structure>
-            </list-property>
-            <column id="38"/>
-            <column id="39"/>
-            <header>
-                <row id="25">
-                    <cell id="26">
-                        <label id="27">
-                            <text-property name="text">PRODUCTLINE</text-property>
-                        </label>
-                    </cell>
-                    <cell id="28">
-                        <label id="29">
-                            <text-property name="text">TEXTDESCRIPTION</text-property>
-                        </label>
-                    </cell>
-                </row>
-            </header>
-            <detail>
-                <row id="30">
-                    <cell id="31">
-                        <data id="32">
-                            <property name="resultSetColumn">PRODUCTLINE</property>
-                        </data>
-                    </cell>
-                    <cell id="33">
-                        <data id="34">
-                            <property name="resultSetColumn">TEXTDESCRIPTION</property>
-                        </data>
-                    </cell>
-                </row>
-            </detail>
-            <footer>
-                <row id="35">
-                    <cell id="36"/>
-                    <cell id="37"/>
-                </row>
-            </footer>
-        </table>
         <table id="42">
             <property name="dataSet">Data Set2</property>
             <list-property name="boundDataColumns">
