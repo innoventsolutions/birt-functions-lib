@@ -30,18 +30,16 @@ import org.eclipse.birt.core.script.functionservice.IScriptFunctionContext;
  * @author Steve Schafer / Innovent Solutions
  */
 public class BirtLogger extends InnoventFunction {
-	private static final Logger logger = Logger.getLogger(BirtLogger.class
-			.getName());
+	private static final long serialVersionUID = 1L;
+	private static final Logger logger = Logger.getLogger(BirtLogger.class.getName());
 
 	@Override
-	public Object execute(final Object[] arguments,
-			final IScriptFunctionContext context) throws BirtException {
+	public Object execute(final Object[] arguments, final IScriptFunctionContext context) throws BirtException {
 		String message = "message is null";
 		if (arguments.length >= 1) {
 			final Object object = arguments[0];
 			if (object != null)
-				message = object.getClass().getName() + ": "
-						+ object.toString();
+				message = object.getClass().getName() + ": " + object.toString();
 		}
 		Level level = Level.INFO;
 		if (arguments.length >= 2) {
@@ -51,8 +49,7 @@ public class BirtLogger extends InnoventFunction {
 				try {
 					level = Level.parse(levelName);
 				} catch (IllegalArgumentException e) {
-					message = "Unrecognized logging level: " + levelName
-							+ ", original message = " + message;
+					message = "Unrecognized logging level: " + levelName + ", original message = " + message;
 				}
 			}
 		}

@@ -19,38 +19,38 @@ import org.eclipse.birt.core.script.functionservice.IScriptFunctionContext;
 import org.eclipse.birt.report.engine.api.script.IReportContext;
 
 /**
- * Throws an error that will show up in the report design
- *  and be accessible from the runTask.getErrors() method
+ * Throws an error that will show up in the report design and be accessible from
+ * the runTask.getErrors() method
  *
- *	Arguments:
+ * Arguments:
  * <ol>
  * <li>Message</li>
  * <li>ReportContext [optional]</li>
- * </ol> 
+ * </ol>
  * 
- * If the reportContext is not supplied, then an Unhandled JavaScript exception will be thrown.
+ * If the reportContext is not supplied, then an Unhandled JavaScript exception
+ * will be thrown.
  * 
- * If reportContext is supplied then the passed message will show up in the error message in the report.
+ * If reportContext is supplied then the passed message will show up in the
+ * error message in the report.
  * 
  */
 public class ThrowException extends InnoventFunction {
+	private static final long serialVersionUID = 1L;
+
 	@Override
-	public Object execute(Object[] arguments, IScriptFunctionContext context)
-			throws BirtException {
+	public Object execute(Object[] arguments, IScriptFunctionContext context) throws BirtException {
 		String message = "Unknown thrown error: message is null";
 		if (arguments == null || arguments.length == 0) {
-			throw new BirtException(InnoventFunctionFactory.plugin_id, message,
-					new Object[] { "" });
+			throw new BirtException(InnoventFunctionFactory.plugin_id, message, new Object[] { "" });
 		}
 
 		Object msgObject = arguments[0];
 		if (msgObject != null) {
-			message = msgObject.getClass().getName() + ": "
-					+ msgObject.toString();
+			message = msgObject.getClass().getName() + ": " + msgObject.toString();
 		}
 		if (arguments.length == 1) {
-			throw new BirtException(InnoventFunctionFactory.plugin_id, message,
-					new Object[] { "" });
+			throw new BirtException(InnoventFunctionFactory.plugin_id, message, new Object[] { "" });
 		}
 
 		if (arguments.length > 1) {

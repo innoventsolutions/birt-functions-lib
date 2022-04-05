@@ -28,10 +28,9 @@ import org.eclipse.birt.report.model.api.SlotHandle;
 import org.eclipse.birt.report.model.api.elements.DesignChoiceConstants;
 
 /**
- * Placed in a DataSets before method, this functions will add 
- * to the where clause to place a SQL snippet into the expression
- * which will be evaluated at runtime binding a parameter and its values
- * to the where clause
+ * Placed in a DataSets before method, this functions will add to the where
+ * clause to place a SQL snippet into the expression which will be evaluated at
+ * runtime binding a parameter and its values to the where clause
  * 
  * NOTE: the parameter name is the name of the field that is being filtered.
  * 
@@ -39,12 +38,14 @@ import org.eclipse.birt.report.model.api.elements.DesignChoiceConstants;
  *
  */
 public class WhereClauseBinding extends InnoventFunction {
+	private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger.getLogger(BindParameters.class.getName());
 
 	@SuppressWarnings("rawtypes")
 	public Object execute(Object[] arguments, IScriptFunctionContext context) throws BirtException {
 		if (arguments.length < 1)
-			throw new BirtException(InnoventFunctionFactory.plugin_id, "No reportContext supplied to ConvertFilters", new Object[] { "" });
+			throw new BirtException(InnoventFunctionFactory.plugin_id, "No reportContext supplied to ConvertFilters",
+					new Object[] { "" });
 
 		final IReportContext rptContext = getReportContext(arguments[0]);
 		final DataSetInstance dataSet = (DataSetInstance) arguments[1];
@@ -54,7 +55,7 @@ public class WhereClauseBinding extends InnoventFunction {
 		logger.fine("Extend Where Clause: " + dataSet.getName() + " " + oper + " " + dataType + " " + paramNames);
 		final String[] paramArray = paramNames.split(",");
 		final String paramOne = paramArray[0];
-		//		final String paramTwo = paramArray.length > 1 ? paramArray[1] : "";
+		// final String paramTwo = paramArray.length > 1 ? paramArray[1] : "";
 
 		ReportDesignHandle designHandle = (ReportDesignHandle) rptContext.getReportRunnable().getDesignHandle();
 		SlotHandle paramSlot = designHandle.getParameters();
@@ -69,7 +70,7 @@ public class WhereClauseBinding extends InnoventFunction {
 			}
 		}
 
-		//TODO Multi-Parameter Support
+		// TODO Multi-Parameter Support
 		String paramName = sph.getName().replace(':', '.');
 		String paramValues = (String) rptContext.getParameterValue(sph.getName());
 		if (paramValues == null || paramValues.trim().length() == 0)
@@ -138,7 +139,7 @@ public class WhereClauseBinding extends InnoventFunction {
 	private String checkWhereClause(DataSetInstance dataSet) throws ScriptException {
 		String qry = dataSet.getQueryText();
 		if (qry != null && !qry.toLowerCase().contains("where")) {
-			//TODO Handle clauses after Where
+			// TODO Handle clauses after Where
 			return "\nWHERE 0=0\n";
 		}
 		return "\n";

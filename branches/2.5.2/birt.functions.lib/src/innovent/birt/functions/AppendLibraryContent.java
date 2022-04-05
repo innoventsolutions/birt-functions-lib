@@ -34,6 +34,7 @@ import org.eclipse.birt.report.model.api.ReportDesignHandle;
  */
 public class AppendLibraryContent extends InnoventFunction {
 
+	private static final long serialVersionUID = 1L;
 	private final String className = this.getClass().toString();
 
 	/**
@@ -43,17 +44,14 @@ public class AppendLibraryContent extends InnoventFunction {
 	 * dependent on.
 	 * 
 	 */
-	public Object execute(Object[] args, IScriptFunctionContext scriptContext)
-			throws BirtException {
+	public Object execute(Object[] args, IScriptFunctionContext scriptContext) throws BirtException {
 		if (args.length < 1)
-			throw new BirtException(InnoventFunctionFactory.plugin_id,
-					"No reportContext supplied to " + className,
+			throw new BirtException(InnoventFunctionFactory.plugin_id, "No reportContext supplied to " + className,
 					new Object[] { "" });
 
 		String reportItemName = String.valueOf(args[0]);
 		if (reportItemName == null || reportItemName.trim().length() == 0) {
-			throw new BirtException(InnoventFunctionFactory.plugin_id,
-					"ReportItem Name is required for " + className,
+			throw new BirtException(InnoventFunctionFactory.plugin_id, "ReportItem Name is required for " + className,
 					new Object[] { "" });
 		}
 
@@ -63,28 +61,23 @@ public class AppendLibraryContent extends InnoventFunction {
 			return null;
 		}
 
-		ReportDesignHandle designHandle = (ReportDesignHandle) rptContext
-				.getReportRunnable().getDesignHandle();
+		ReportDesignHandle designHandle = (ReportDesignHandle) rptContext.getReportRunnable().getDesignHandle();
 
 		@SuppressWarnings("unchecked")
 		List<ModuleHandle> libs = designHandle.getLibraries();
 		DesignElementHandle libRptItemHandle = null;
 		for (ModuleHandle libHandle : libs) {
 			libRptItemHandle = libHandle.findElement(reportItemName);
-			
+
 			// create a new item from the library item.
-			DesignElementHandle newLibItemHandle = designHandle
-					.getElementFactory().newElementFrom(
-							libRptItemHandle,
-							libRptItemHandle.getName()
-									+ System.currentTimeMillis());
+			DesignElementHandle newLibItemHandle = designHandle.getElementFactory().newElementFrom(libRptItemHandle,
+					libRptItemHandle.getName() + System.currentTimeMillis());
 			designHandle.getBody().add(newLibItemHandle);
 			return "success";
 		}
 
 		throw new BirtException(InnoventFunctionFactory.plugin_id,
-				"failure to find " + reportItemName + " in libraries: "
-						+ this.className, new Object[] { "" });
+				"failure to find " + reportItemName + " in libraries: " + this.className, new Object[] { "" });
 	}
 
 }

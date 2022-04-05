@@ -40,6 +40,7 @@ import org.eclipse.birt.report.model.api.SharedStyleHandle;
 import org.eclipse.birt.report.model.api.elements.DesignChoiceConstants;
 
 public class SetChartPalette extends InnoventFunction {
+	private static final long serialVersionUID = 1L;
 	private final String className = this.getClass().toString();
 
 	@Override

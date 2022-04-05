@@ -11,10 +11,6 @@
  */
 package innovent.birt.functions;
 
-import innovent.birt.functions.factory.InnoventFunction;
-import innovent.birt.functions.factory.InnoventFunctionFactory;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -28,6 +24,7 @@ import org.eclipse.birt.core.exception.BirtException;
 import org.eclipse.birt.core.script.functionservice.IScriptFunctionContext;
 import org.eclipse.birt.report.engine.api.script.IReportContext;
 import org.eclipse.birt.report.model.api.DataSetHandle;
+import org.eclipse.birt.report.model.api.DesignElementHandle;
 import org.eclipse.birt.report.model.api.ElementFactory;
 import org.eclipse.birt.report.model.api.Expression;
 import org.eclipse.birt.report.model.api.ReportDesignHandle;
@@ -39,6 +36,9 @@ import org.eclipse.birt.report.model.api.elements.DesignChoiceConstants;
 import org.eclipse.birt.report.model.api.elements.structures.FilterCondition;
 import org.eclipse.birt.report.model.api.elements.structures.ResultSetColumn;
 import org.eclipse.birt.report.model.api.elements.structures.SelectionChoice;
+
+import innovent.birt.functions.factory.InnoventFunction;
+import innovent.birt.functions.factory.InnoventFunctionFactory;
 
 /**
  * Edits all the data sets in the report. If a filter is found on an ODA the
@@ -59,6 +59,7 @@ import org.eclipse.birt.report.model.api.elements.structures.SelectionChoice;
  * <p>
  */
 public class ConvertFilters extends InnoventFunction {
+	private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger.getLogger(BindParameters.class.getName());
 
 	public Object execute(Object[] arguments, IScriptFunctionContext context) throws BirtException {
@@ -73,7 +74,8 @@ public class ConvertFilters extends InnoventFunction {
 
 		removeParameters(rptContext);
 
-		Boolean debug = false;
+		@SuppressWarnings("unused")
+		Boolean debug = Boolean.FALSE;
 		if (arguments.length == 2)
 			debug = (Boolean) arguments[1];
 
@@ -239,8 +241,7 @@ public class ConvertFilters extends InnoventFunction {
 		String paramName = expVals.substring(expVals.indexOf("?") + 1, expVals.indexOf("]"));
 		ScalarParameterHandle usedParam = null;
 		SlotHandle paramHdls = rptContext.getDesignHandle().getParameters();
-		@SuppressWarnings("unchecked")
-		Iterator<Object> pIter = paramHdls.iterator();
+		Iterator<DesignElementHandle> pIter = paramHdls.iterator();
 		while (pIter.hasNext()) {
 			Object obj = pIter.next();
 			if (obj instanceof ScalarParameterHandle) {

@@ -1,0 +1,4 @@
+bin/
+*.jar
+eclipse
+eclipse*.log

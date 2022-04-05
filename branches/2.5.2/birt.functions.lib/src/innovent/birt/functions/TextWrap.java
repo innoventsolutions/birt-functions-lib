@@ -18,6 +18,8 @@ import org.eclipse.birt.core.script.functionservice.IScriptFunctionContext;
 
 public class TextWrap extends InnoventFunction {
 
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Inserts line-endings to word-wrap a string into multiple lines.
 	 * 
@@ -25,8 +27,7 @@ public class TextWrap extends InnoventFunction {
 	 * @param length
 	 * @return
 	 */
-	public Object execute(Object[] args, IScriptFunctionContext context)
-			throws BirtException {
+	public Object execute(Object[] args, IScriptFunctionContext context) throws BirtException {
 		String inputString = String.valueOf(args[0]);
 		if (inputString == null)
 			return "";
@@ -38,13 +39,13 @@ public class TextWrap extends InnoventFunction {
 		// FIX, handle positions passed as numbers
 		// BIRT automatically converts a number to a floating point
 		Integer position = 0;
-		if (p.indexOf(".") >= 0){
+		if (p.indexOf(".") >= 0) {
 			Float f = Float.valueOf(p);
 			position = Integer.valueOf(Math.round(f));
 		} else {
 			position = Integer.valueOf(p);
 		}
-			
+
 		if (position == null)
 			return inputString;
 

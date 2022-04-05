@@ -39,12 +39,13 @@ import org.eclipse.birt.report.model.elements.interfaces.IStyleModel;
  */
 public class DisplayParameters extends InnoventFunction {
 
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Find and replace all of the Multi-Selection Strings in the sql code
 	 */
 	@SuppressWarnings("unchecked")
-	public Object execute(Object[] args, IScriptFunctionContext scriptContext)
-			throws BirtException {
+	public Object execute(Object[] args, IScriptFunctionContext scriptContext) throws BirtException {
 		IReportContext rptContext = getReportContext(args[0]);
 		// do not run this code if in the dataSet editor
 		if (isDataSetEditor(rptContext)) {
@@ -54,22 +55,18 @@ public class DisplayParameters extends InnoventFunction {
 		IGetParameterDefinitionTask parameterTask = runnable.getReportEngine()
 				.createGetParameterDefinitionTask(runnable);
 
-		ReportDesignHandle designHandle = (ReportDesignHandle) rptContext
-				.getReportRunnable().getDesignHandle();
-		Collection<ParameterDefn> paramRefs = parameterTask
-				.getParameterDefns(false);
+		ReportDesignHandle designHandle = (ReportDesignHandle) rptContext.getReportRunnable().getDesignHandle();
+		Collection<ParameterDefn> paramRefs = parameterTask.getParameterDefns(false);
 		if (paramRefs == null || paramRefs.size() == 0) {
-			LabelHandle lh = designHandle.getElementFactory().newLabel(
-					"paramters");
+			LabelHandle lh = designHandle.getElementFactory().newLabel("paramters");
 			lh.setText("No Parameters Defined");
 			designHandle.getBody().add(lh, 0);
 		}
-		
-		GridHandle newGrid = designHandle.getElementFactory().newGridItem(
-				"parameterGrid", 3, paramRefs.size() + 1);
-		//newGrid.setWidth("100%");
+
+		GridHandle newGrid = designHandle.getElementFactory().newGridItem("parameterGrid", 3, paramRefs.size() + 1);
+		// newGrid.setWidth("100%");
 		DesignElementHandle deh = designHandle.getBody().get(0);
-		if(newGrid.getName().equalsIgnoreCase(deh.getName()))
+		if (newGrid.getName().equalsIgnoreCase(deh.getName()))
 			deh.drop();
 
 		newGrid.setProperty(IStyleModel.BACKGROUND_COLOR_PROP, "#99B3CC");
@@ -111,8 +108,7 @@ public class DisplayParameters extends InnoventFunction {
 		return "success";
 	}
 
-	private void setBorder(DesignElementHandle elementHdl)
-			throws SemanticException {
+	private void setBorder(DesignElementHandle elementHdl) throws SemanticException {
 		elementHdl.setProperty(IStyleModel.BORDER_BOTTOM_COLOR_PROP, "#0529B");
 		elementHdl.setProperty(IStyleModel.BORDER_BOTTOM_WIDTH_PROP, "thin");
 		elementHdl.setProperty(IStyleModel.BORDER_BOTTOM_STYLE_PROP, "solid");
