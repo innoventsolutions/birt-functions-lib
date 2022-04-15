@@ -114,7 +114,7 @@ public class CountUnique implements IAggrFunction {
 				throw new RuntimeException(
 						"Error! Call summary total function before finished the dataset");
 			}
-			return new Integer(values.size());
+			return Integer.valueOf(values.size());
 		}
 	}
 

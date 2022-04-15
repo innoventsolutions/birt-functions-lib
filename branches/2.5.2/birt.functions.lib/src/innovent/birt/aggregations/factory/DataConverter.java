@@ -36,17 +36,17 @@ public class DataConverter {
 
 		if (source instanceof Integer) {
 			double doubleValue = ((Integer) source).doubleValue();
-			return new Double(doubleValue);
+			return Double.valueOf(doubleValue);
 		} else if (source instanceof BigDecimal) {
 			double doubleValue = ((BigDecimal) source).doubleValue();
-			return new Double(doubleValue);
+			return Double.valueOf(doubleValue);
 		} else if (source instanceof Boolean) {
 			if (true == ((Boolean) source).booleanValue())
-				return new Double(1d);
-			return new Double(0d);
+				return Double.valueOf(1d);
+			return Double.valueOf(0d);
 		} else if (source instanceof Date) {
 			double doubleValue = ((Date) source).getTime();
-			return new Double(doubleValue);
+			return Double.valueOf(doubleValue);
 		} else if (source instanceof Double) {
 			return (Double) source;
 		} else if (source instanceof String) {
@@ -79,7 +79,7 @@ public class DataConverter {
 			return (Integer) source;
 		} else if (source instanceof BigDecimal) {
 			int intValue = ((BigDecimal) source).intValue();
-			return new Integer(intValue);
+			return Integer.valueOf(intValue);
 		} else if (source instanceof Boolean) {
 			if (true == ((Boolean) source).booleanValue())
 				return Integer.valueOf(1);

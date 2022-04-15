@@ -25,6 +25,7 @@ import org.eclipse.birt.core.exception.BirtException;
 import org.eclipse.birt.core.script.functionservice.IScriptFunctionContext;
 import org.eclipse.birt.report.engine.api.script.IReportContext;
 import org.eclipse.birt.report.model.api.DataSetHandle;
+import org.eclipse.birt.report.model.api.DesignElementHandle;
 import org.eclipse.birt.report.model.api.ElementFactory;
 import org.eclipse.birt.report.model.api.Expression;
 import org.eclipse.birt.report.model.api.ReportDesignHandle;
@@ -59,8 +60,8 @@ import innovent.birt.functions.factory.InnoventFunctionFactory;
  * <p>
  */
 public class ConvertFilters extends InnoventFunction {
-	private static final Logger logger = Logger
-			.getLogger(BindParameters.class.getName());
+	private static final long serialVersionUID = 1L;
+	private static final Logger logger = Logger.getLogger(BindParameters.class.getName());
 
 	public Object execute(Object[] arguments, IScriptFunctionContext context)
 			throws BirtException {
@@ -74,7 +75,9 @@ public class ConvertFilters extends InnoventFunction {
 			return null;
 		}
 		removeParameters(rptContext);
-		Boolean debug = false;
+
+		@SuppressWarnings("unused")
+		Boolean debug = Boolean.FALSE;
 		if (arguments.length == 2)
 			debug = (Boolean) arguments[1];
 		ReportDesignHandle designHandle = (ReportDesignHandle) rptContext
@@ -237,8 +240,7 @@ public class ConvertFilters extends InnoventFunction {
 				expVals.indexOf("]"));
 		ScalarParameterHandle usedParam = null;
 		SlotHandle paramHdls = rptContext.getDesignHandle().getParameters();
-		@SuppressWarnings("unchecked")
-		Iterator<Object> pIter = paramHdls.iterator();
+		Iterator<DesignElementHandle> pIter = paramHdls.iterator();
 		while (pIter.hasNext()) {
 			Object obj = pIter.next();
 			if (obj instanceof ScalarParameterHandle) {

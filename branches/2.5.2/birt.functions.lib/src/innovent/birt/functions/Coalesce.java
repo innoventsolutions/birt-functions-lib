@@ -17,6 +17,8 @@ import innovent.birt.functions.factory.InnoventFunction;
 
 public class Coalesce extends InnoventFunction {
 
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public Object execute(Object[] arguments, IScriptFunctionContext context) throws BirtException {
 		if (arguments.length < 1)

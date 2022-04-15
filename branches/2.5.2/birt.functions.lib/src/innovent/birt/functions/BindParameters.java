@@ -93,8 +93,8 @@ import org.eclipse.birt.report.model.api.elements.structures.OdaDataSetParameter
  * translated.
  */
 public class BindParameters extends InnoventFunction {
-	private static final Logger logger = Logger
-			.getLogger(BindParameters.class.getName());
+	private static final long serialVersionUID = 1L;
+	private static final Logger logger = Logger.getLogger(BindParameters.class.getName());
 	private static final String PARAM_TOKEN = "?";
 	private final Pattern pattern = Pattern.compile(
 			"/\\* BIND (.*?)\\$([A-Za-z0-9-_#]+)(.*?)\\*/",
@@ -164,8 +164,8 @@ public class BindParameters extends InnoventFunction {
 	}
 
 	/**
-	 * As parameter bindings are added, the position is accurately tracked, but
-	 * the ODA does not pay attention to the position when running.
+	 * As parameter bindings are added, the position is accurately tracked, but the
+	 * ODA does not pay attention to the position when running.
 	 * <p>
 	 * This routine re-orders the parameters in the list to match the position
 	 * variable.
@@ -197,12 +197,12 @@ public class BindParameters extends InnoventFunction {
 	 * &#47;* BIND prefix $paramname suffix *&#47;
 	 * </code>
 	 * <p>
-	 * This class will handle the string substitutions required to change all of
-	 * the dynamic parameters into standard JDBC parameters.
+	 * This class will handle the string substitutions required to change all of the
+	 * dynamic parameters into standard JDBC parameters.
 	 * <p>
 	 * In addition, this class will add parameter bindings in the appropriate
-	 * locations for all of the dynamic parameters. The dynamic parameters will
-	 * be hard-coded to the actual value of the passed parameter.
+	 * locations for all of the dynamic parameters. The dynamic parameters will be
+	 * hard-coded to the actual value of the passed parameter.
 	 * 
 	 */
 	private final class DynamicQueryText {
@@ -280,11 +280,11 @@ public class BindParameters extends InnoventFunction {
 		}
 
 		/**
-		 * For a given DataSet add a parameter binding to the static value that
-		 * is passed to the report.
+		 * For a given DataSet add a parameter binding to the static value that is
+		 * passed to the report.
 		 * <p>
-		 * Use the position variable to determine the appropriate location for
-		 * the parameter (as it appears in the query),
+		 * Use the position variable to determine the appropriate location for the
+		 * parameter (as it appears in the query),
 		 * 
 		 * @param odaDataSetHandle
 		 * @param newParamIndex
