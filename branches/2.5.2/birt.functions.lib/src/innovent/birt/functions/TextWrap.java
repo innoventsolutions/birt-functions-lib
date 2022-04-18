@@ -31,17 +31,23 @@ public class TextWrap extends InnoventFunction {
 		String inputString = String.valueOf(args[0]);
 		if (inputString == null)
 			return "";
-		if(args.length == 1)
+		if (args.length == 1)
 			return inputString;
 
-		// FIX, handle positions passed as numbers
-		// BIRT automatically converts a number to a floating point
+		Object arg1 = args[1];
 		Integer position = 0;
-		if (p.indexOf(".") >= 0) {
-			Float f = Float.valueOf(p);
-			position = Integer.valueOf(Math.round(f));
-		} else {
-			position = Integer.valueOf(p);
+		if (arg1 instanceof String) {
+			String p = (String) arg1;
+			// BIRT automatically converts a number to a floating point
+			if (p.indexOf(".") >= 0) {
+				Float f = Float.valueOf(p);
+				position = Integer.valueOf(Math.round(f));
+			} else {
+				position = Integer.valueOf(p);
+			}
+		} else if (arg1 instanceof Number) {
+			Number number = (Number) arg1;
+			position = number.intValue();
 		}
 
 		if (position == null)
