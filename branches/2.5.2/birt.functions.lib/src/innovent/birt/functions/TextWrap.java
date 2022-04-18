@@ -35,7 +35,7 @@ public class TextWrap extends InnoventFunction {
 			return inputString;
 
 		Object arg1 = args[1];
-		Integer position = 0;
+		Integer position = null;
 		if (arg1 instanceof String) {
 			String p = (String) arg1;
 			// BIRT automatically converts a number to a floating point
