@@ -4,8 +4,6 @@ As an Eclipse project, BIRT is built for extendability. Developers can customize
 
 The birt-functions-lib project shows best practice implementations of two BIRT extension points:
 
-Aggregate Extension
-Script Function Extension
 The code examples in this project are not just trivial samples. Even if you never look at the source, your BIRT project will benefit from the use of these functions. If you are looking at using these extension points, this project will provide a solid platform for your own custom functions.
 <br/><br/>
 All of the provided functions have been tested for compatibility with BIRT 4.9.0. 
