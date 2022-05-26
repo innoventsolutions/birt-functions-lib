@@ -2,7 +2,7 @@ Business Intelligence and Reporting Tools (BIRT)is a top level Eclipse project.
 
 As an Eclipse project, BIRT is built for extendability. Developers can customize BIRT to support custom controls and behavior through BIRT extension points. Extension points allow complex custom operations to be integrated right into the BIRT UI and scripting language.
 
-The birt-functions-lib project shows best practice implementations of two BIRT extension points:
+The birt-functions-lib project shows best practice implementations of two BIRT extension points:  Aggregate Extension and Script Function Extension.
 
 The code examples in this project are not just trivial samples. Even if you never look at the source, your BIRT project will benefit from the use of these functions. If you are looking at using these extension points, this project will provide a solid platform for your own custom functions.
 <br/><br/>
