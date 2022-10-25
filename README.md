@@ -6,7 +6,7 @@ The birt-functions-lib project shows best practice implementations of two BIRT e
 
 The code examples in this project are not just trivial samples. Even if you never look at the source, your BIRT project will benefit from the use of these functions. If you are looking at using these extension points, this project will provide a solid platform for your own custom functions.
 <br/><br/>
-All of the provided functions have been tested for compatibility with BIRT 4.9.0. 
+All of the provided functions have been tested for compatibility with BIRT 4.10.0. 
 <br/><br/>
 VERSION RULES
 <ul><li>If you are using BIRT 2.3.2: use version 2.3.2.X.</li></ul>

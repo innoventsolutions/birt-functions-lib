@@ -16,5 +16,5 @@ Export-Package: innovent.birt.aggregations,
  innovent.birt.functions.factory,
  org.mockito
 Bundle-ClassPath: .
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Automatic-Module-Name: birt.functions.lib

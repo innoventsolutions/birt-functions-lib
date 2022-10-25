@@ -4,3 +4,4 @@ bin/
 *.jar
 eclipse
 eclipse*.log
+file:/
