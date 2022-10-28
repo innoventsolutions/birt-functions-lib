@@ -66,6 +66,7 @@ public class DisplayParametersTest {
 						.createRunAndRenderTask(design);
 				final Map<String, Object> appContext = rrTask.getAppContext();
 				final ClassLoader classLoader = getClass().getClassLoader();
+				System.out.println("DisplayParametersTest testExecute1 classLoader = " + classLoader);
 				appContext.put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY,
 						classLoader);
 				// rrTask.setAppContext(appContext);

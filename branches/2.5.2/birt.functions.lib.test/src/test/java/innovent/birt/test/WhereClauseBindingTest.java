@@ -1,16 +1,16 @@
 package innovent.birt.test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.birt.core.exception.BirtException;
 import org.eclipse.birt.core.script.functionservice.IScriptFunctionContext;
 import org.eclipse.birt.engine.ReportEngine;
-import org.eclipse.birt.report.engine.api.EngineConstants;
 import org.eclipse.birt.report.engine.api.EngineException;
 import org.eclipse.birt.report.engine.api.HTMLRenderOption;
 import org.eclipse.birt.report.engine.api.IGetParameterDefinitionTask;
@@ -22,47 +22,43 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import innovent.birt.functions.BindParameters;
+import innovent.birt.functions.WhereClauseBinding;
 
-public class BindParametersTest {
+/**
+ * @author steve
+ *
+ */
+public class WhereClauseBindingTest {
 	/**
-	 * Test no arguments
+	 * Test passing no arguments
 	 */
 	@Test
-	public void testExecut0() {
-		BindParameters bindParameters = new BindParameters();
+	public void testExecute0() {
 		IScriptFunctionContext scriptContext = Mockito
 				.mock(IScriptFunctionContext.class);
+		WhereClauseBinding whereClauseBinding = new WhereClauseBinding();
 		try {
-			bindParameters.execute(new Object[] {}, scriptContext);
+			whereClauseBinding.execute(new Object[] {}, scriptContext);
 		}
 		catch (BirtException e) {
 			Assert.assertEquals(
-					"No reportContext supplied to ResolveSQLParameters",
+					"No reportContext supplied to WhereClauseBinding",
 					e.getMessage());
 		}
 	}
 
 	/**
-	 * This test starts a report engine, runs a report, and then checks the
-	 * output.
+	 * Test passing reportContext
 	 * 
-	 * To run this test you will need to include the birt-runtime classes in the
-	 * classpath and also build this plugin into a jar and put it in the
-	 * classpath as well.
-	 * 
-	 * OR run an eclipse instance from within eclipse.
-	 * 
-	 * @author steve
-	 *
+	 * @throws FileNotFoundException
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testExecute() throws UnsupportedEncodingException {
+	public void testExecute1() throws FileNotFoundException {
 		try {
 			final IReportEngine reportEngine = ReportEngine.getReportEngine();
-			final InputStream is = this.getClass()
-					.getResourceAsStream("/reports/test_bind_params.rptdesign");
+			final String rptDesignFileName = ReportEngine.RESOURCE_DIR + "/reports/test_where_clause_binding.rptdesign";
+			final InputStream is = new FileInputStream(rptDesignFileName);
 			final IReportRunnable design = reportEngine.openReportDesign(is);
 			final IGetParameterDefinitionTask paramTask = reportEngine
 					.createGetParameterDefinitionTask(design);
@@ -70,11 +66,11 @@ public class BindParametersTest {
 			try {
 				final IRunAndRenderTask rrTask = reportEngine
 						.createRunAndRenderTask(design);
-				final Map<String, Object> appContext = rrTask.getAppContext();
-				final ClassLoader classLoader = getClass().getClassLoader();
-				System.out.println("BindParametersTest testExecute classLoader = " + classLoader);
-				appContext.put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY,
-						classLoader);
+//				final Map<String, Object> appContext = rrTask.getAppContext();
+//				final ClassLoader classLoader = getClass().getClassLoader();
+//				System.out.println("WhereClauseBindingTest testExecute1 classLoader = " + classLoader);
+//				appContext.put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY,
+//						classLoader);
 				// rrTask.setAppContext(appContext);
 				try {
 					final ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -85,9 +81,11 @@ public class BindParametersTest {
 					rrTask.run();
 					errors = rrTask.getErrors();
 					String output = os.toString("utf-8");
-					System.out.println(output);
+					System.out.println("WhereClauseBindingTest output = " + output);
 					Assert.assertTrue(
 							output.indexOf("Australian Collectors, Co.") >= 0);
+					Assert.assertFalse(
+							output.indexOf("Baane Mini Imports") >= 0);
 				}
 				finally {
 					rrTask.close();

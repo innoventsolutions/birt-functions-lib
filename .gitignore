@@ -3,5 +3,7 @@ branches/2.5.2/birt.functions.lib/target/
 bin/
 *.jar
 eclipse
-eclipse*.log
+*.log
+*.log.lck
+*.class
 file:/

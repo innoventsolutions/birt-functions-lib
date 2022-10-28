@@ -69,6 +69,9 @@ public class AppendLibraryContent extends InnoventFunction {
 		for (ModuleHandle libHandle : libs) {
 			libRptItemHandle = libHandle.findElement(reportItemName);
 
+			if(libRptItemHandle == null) {
+				continue;
+			}
 			// create a new item from the library item.
 			DesignElementHandle newLibItemHandle = designHandle.getElementFactory().newElementFrom(libRptItemHandle,
 					libRptItemHandle.getName() + System.currentTimeMillis());

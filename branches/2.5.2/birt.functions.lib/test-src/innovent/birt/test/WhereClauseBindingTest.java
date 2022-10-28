@@ -66,6 +66,7 @@ public class WhereClauseBindingTest {
 						.createRunAndRenderTask(design);
 				final Map<String, Object> appContext = rrTask.getAppContext();
 				final ClassLoader classLoader = getClass().getClassLoader();
+				System.out.println("WhereClauseBindingTest testExecute1 classLoader = " + classLoader);
 				appContext.put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY,
 						classLoader);
 				// rrTask.setAppContext(appContext);
