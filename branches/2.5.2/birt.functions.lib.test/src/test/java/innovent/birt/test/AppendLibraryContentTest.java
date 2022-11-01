@@ -67,7 +67,7 @@ public class AppendLibraryContentTest {
 	}
 
 	// 10/28/2020 this doesn't work
-	// @Test
+	@Test
 	public void testExecute() {
 		IScriptFunctionContext scriptContext = Mockito.mock(IScriptFunctionContext.class);
 		ExecutionContext executionContext = Mockito.mock(ExecutionContext.class);
@@ -76,8 +76,7 @@ public class AppendLibraryContentTest {
 
 		Label label = Mockito.mock(Label.class);
 		IElementDefn labelDefn = Mockito.mock(IElementDefn.class);
-		System.out.println("AppendLibraryContent: lableDefn.getSlotCount() = " + labelDefn.getSlotCount());
-		// Mockito.when(labelDefn.getSlotCount()).thenReturn(0);
+		Mockito.when(labelDefn.getSlotCount()).thenReturn(0);
 		Mockito.when(label.getDefn()).thenReturn(labelDefn);
 
 		Library library = Mockito.mock(Library.class);
@@ -108,7 +107,7 @@ public class AppendLibraryContentTest {
 		IElementDefn reportDesignDefn = Mockito.mock(IElementDefn.class);
 		Mockito.when(reportDesignDefn.getSlotCount()).thenReturn(0);
 		Mockito.when(reportDesign.getDefn()).thenReturn(reportDesignDefn);
-
+		Mockito.when(elementDE.getRoot()).thenReturn(reportDesign);
 		ElementFactory elementFactory = Mockito.mock(ElementFactory.class);
 		try {
 			Mockito.when(elementFactory.newElementFrom(Mockito.any(DesignElementHandle.class), Mockito.anyString()))
