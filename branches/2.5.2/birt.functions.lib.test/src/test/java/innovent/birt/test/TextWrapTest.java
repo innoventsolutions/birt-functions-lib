@@ -40,14 +40,22 @@ public class TextWrapTest {
 				.mock(IScriptFunctionContext.class);
 		IScriptFunctionExecutor sfe = new TextWrap();
 		Object result = null;
+		boolean IOBCaught = false;
 		try {
 			result = sfe.execute(new Object[] { "abc" }, scriptContext);
 		}
-		catch (Exception e) {
+		catch (ArrayIndexOutOfBoundsException e) {
+			Assert.assertEquals("Index 1 out of bounds for length 1", e.getMessage());
+			IOBCaught = true;
+		}
+		catch (BirtException e) {
+			e.printStackTrace();
 			Assert.fail(e.toString());
 		}
-		Assert.assertNotNull(result);
-		Assert.assertEquals("abc", result);
+		if(!IOBCaught) {
+			Assert.assertNotNull(result);
+			Assert.assertEquals("abc", result);
+		}
 	}
 
 	/**

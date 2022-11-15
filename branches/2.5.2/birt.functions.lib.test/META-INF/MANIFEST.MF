@@ -1,14 +1,14 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Tests
-Bundle-SymbolicName: birt.functions.lib.test
-Bundle-Version: 2.6.2
-Automatic-Module-Name: birt.functions.lib.test
+Bundle-SymbolicName: birt.functions.lib.tests
+Bundle-Version: 2.6.1.12
+Automatic-Module-Name: birt.functions.lib.tests
 Bundle-ClassPath: .,
  test-lib/byte-buddy-1.11.13.jar,
  test-lib/mockito-core-3.12.4.jar,
  test-lib/objenesis-2.2.jar
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: org.junit;bundle-version="4.13.0",
  org.eclipse.birt.report.model,
  org.eclipse.birt.report.engine.emitter.html;bundle-version="4.10.0",
@@ -16,12 +16,14 @@ Require-Bundle: org.junit;bundle-version="4.13.0",
  org.eclipse.birt.report.engine.script.javascript;bundle-version="4.10.0",
  org.eclipse.birt.report.data.oda.jdbc;bundle-version="4.10.0",
  org.eclipse.birt.report.data.oda.jdbc.dbprofile;bundle-version="4.10.0",
- birt.functions.lib;bundle-version="2.6.1",
+ birt.functions.lib;bundle-version="2.6.1.13",
  org.eclipse.birt.report.engine;bundle-version="4.10.0",
  org.eclipse.birt.report.data.oda.jdbc.dbprofile.sampledb;bundle-version="4.10.0"
 Import-Package: com.ibm.icu.util,
  org.apache.batik.css.parser;version="1.14.0",
  org.apache.batik.i18n;version="1.14.0",
+ org.apache.derby.jdbc;version="10.11.1.1",
+ org.eclipse.birt.chart.model.attribute,
  org.eclipse.birt.core.data,
  org.eclipse.birt.core.exception,
  org.eclipse.birt.core.framework,

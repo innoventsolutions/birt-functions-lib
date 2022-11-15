@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.24" id="1">
     <property name="createdBy">Eclipse BIRT Designer Version 4.5.0.v201506092134 Build &lt;@BUILD@></property>
     <property name="units">in</property>
     <method name="beforeFactory"><![CDATA[CustomFunctions.BindParameters(reportContext);]]></method>
@@ -8,7 +8,7 @@
     <property name="imageDPI">96</property>
     <list-property name="cssStyleSheets">
         <structure>
-            <property name="fileName">test-res/reports/test.css</property>
+            <property name="fileName">src/test/resources/reports/test.css</property>
             <property name="useExternalCss">false</property>
         </structure>
     </list-property>
@@ -154,7 +154,16 @@
                     <text-property name="heading">CREDITLIMIT</text-property>
                 </structure>
             </list-property>
-            <list-property name="parameters"/>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">rsp_param_1</property>
+                    <property name="dataType">string</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">"A%"</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
             <structure name="cachedMetaData">
                 <list-property name="resultSet">
                     <structure>
@@ -321,7 +330,7 @@
             <xml-property name="queryText"><![CDATA[select *
 from customers
 where 0 = 0
-/* BIND and customername like $cust_name */]]></xml-property>
+and customername like ? ]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
   <Version>2.0</Version>
@@ -820,7 +829,16 @@ from CLASSICMODELS.PRODUCTLINES]]></xml-property>
                     <text-property name="heading">ORDERLINENUMBER</text-property>
                 </structure>
             </list-property>
-            <list-property name="parameters"/>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">rsp_param_2</property>
+                    <property name="dataType">string</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">"10100"</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
             <structure name="cachedMetaData">
                 <list-property name="resultSet">
                     <structure>
@@ -891,7 +909,7 @@ from CLASSICMODELS.PRODUCTLINES]]></xml-property>
             <xml-property name="queryText"><![CDATA[select *
 from CLASSICMODELS.ORDERDETAILS
 where 0 = 0
-/* BIND and ORDERNUMBER = $order_number */]]></xml-property>
+and ORDERNUMBER = ? ]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
   <Version>2.0</Version>
@@ -1066,6 +1084,8 @@ where 0 = 0
                         <property name="colSpan">5</property>
                         <property name="rowSpan">1</property>
                         <extended-item extensionName="Chart" id="82">
+                            <property name="height">130pt</property>
+                            <property name="width">567pt</property>
                             <xml-property name="xmlRepresentation"><![CDATA[<model:ChartWithAxes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attribute="http://www.birt.eclipse.org/ChartModelAttribute" xmlns:data="http://www.birt.eclipse.org/ChartModelData" xmlns:layout="http://www.birt.eclipse.org/ChartModelLayout" xmlns:model="http://www.birt.eclipse.org/ChartModel" xmlns:type="http://www.birt.eclipse.org/ChartModelType">
   <Version>2.6.1</Version>
   <Type>Bar Chart</Type>
@@ -2457,12 +2477,9 @@ function beforeDrawSeries( series, isr, icsc )
       <Type>None</Type>
     </Angles>
   </Rotation>
-</model:ChartWithAxes>
-]]></xml-property>
+</model:ChartWithAxes>]]></xml-property>
                             <property name="outputFormat">SVG</property>
                             <property name="inheritColumns">false</property>
-                            <property name="height">130pt</property>
-                            <property name="width">567pt</property>
                         </extended-item>
                     </cell>
                 </row>

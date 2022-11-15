@@ -19,6 +19,7 @@ import innovent.birt.functions.factory.InnoventFunctionFactory;
 
 import java.io.File;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.eclipse.birt.chart.model.attribute.ColorDefinition;
 import org.eclipse.birt.chart.model.attribute.Fill;
@@ -42,6 +43,7 @@ import org.eclipse.birt.report.model.api.elements.DesignChoiceConstants;
 public class SetChartPalette extends InnoventFunction {
 	private static final long serialVersionUID = 1L;
 	private final String className = this.getClass().toString();
+	private static final Logger logger = Logger.getLogger(SetChartPalette.class.getName());
 
 	@Override
 	public Object execute(Object[] args, IScriptFunctionContext context)
@@ -73,10 +75,13 @@ public class SetChartPalette extends InnoventFunction {
 		try {
 			final String resFolderName = reportContext.getReportRunnable()
 					.getReportEngine().getConfig().getResourcePath();
+			logger.info("SetChartPalette: resFolderName = " + resFolderName);
 			if (resFolderName != null) {
 				resourceFolder = new File(resFolderName);
 			}
 		} catch (Exception e) {
+			logger.info("Caught " + e);
+			e.printStackTrace();
 			throw new BirtException(InnoventFunctionFactory.plugin_id,
 					"Unable to find RESOURCE HOME in " + className,
 					new Object[] { "" });

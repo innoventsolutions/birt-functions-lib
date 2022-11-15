@@ -191,7 +191,7 @@
             </structure>
             <method name="beforeOpen"><![CDATA[var queryText = CustomFunctions.WhereClauseBinding(reportContext, this, "LIKE", "string", "customername");
 this.queryText += queryText
-Packages.java.lang.System.out.println(this.queryText);
+Packages.java.lang.System.out.println("test_where_clause_binding.rptdesign beforeOpen queryText = " + this.queryText);
 reportContext.setGlobalVariable("queryText", this.queryText);
 ]]></method>
             <property name="dataSource">Data Source</property>
