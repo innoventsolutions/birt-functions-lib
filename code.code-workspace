@@ -5,6 +5,12 @@
 		},
 		{
 			"path": "../birt-controls-lib"
+		},
+		{
+			"path": "../birt-functions-lib.wiki"
+		},
+		{
+			"path": "../birt-controls-lib.wiki"
 		}
 	],
 	"settings": {}
