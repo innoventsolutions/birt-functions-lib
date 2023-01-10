@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -15,10 +14,6 @@ import org.eclipse.birt.engine.ReportEngine;
 import org.eclipse.birt.report.engine.api.EngineConstants;
 import org.eclipse.birt.report.engine.api.EngineException;
 import org.eclipse.birt.report.engine.api.HTMLRenderOption;
-import org.eclipse.birt.report.engine.api.IGetParameterDefinitionTask;
-import org.eclipse.birt.report.engine.api.IReportEngine;
-import org.eclipse.birt.report.engine.api.IReportRunnable;
-import org.eclipse.birt.report.engine.api.IRunAndRenderTask;
 import org.eclipse.birt.report.engine.api.RenderOption;
 import org.junit.Assert;
 import org.junit.Test;
@@ -36,56 +31,53 @@ public class DisplayParametersTest {
 	 */
 	@Test
 	public void testExecute0() {
-		IScriptFunctionContext scriptContext = Mockito
-				.mock(IScriptFunctionContext.class);
-		DisplayParameters displayParameters = new DisplayParameters();
+		final var scriptContext = Mockito.mock(IScriptFunctionContext.class);
+		final var displayParameters = new DisplayParameters();
 		try {
 			displayParameters.execute(new Object[] {}, scriptContext);
 		}
-		catch (ArrayIndexOutOfBoundsException e) {
+		catch (final ArrayIndexOutOfBoundsException e) {
 		}
-		catch (BirtException e) {
+		catch (final BirtException e) {
 			Assert.fail("Failed to execute: " + e);
 		}
 	}
 
 	/**
 	 * Test passing reportContext
-	 * 
+	 *
 	 * @throws FileNotFoundException
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testExecute1() throws FileNotFoundException {
 		try {
-			final IReportEngine reportEngine = ReportEngine.getReportEngine();
-			final String rptDesignFileName = ReportEngine.RESOURCE_DIR + "/reports/test_display_parameters.rptdesign";
+			final var reportEngine = ReportEngine.getReportEngine();
+			final var rptDesignFileName = ReportEngine.RESOURCE_DIR
+				+ "/reports/test_display_parameters.rptdesign";
 			final InputStream is = new FileInputStream(rptDesignFileName);
-			final IReportRunnable design = reportEngine.openReportDesign(is);
-			final IGetParameterDefinitionTask paramTask = reportEngine
-					.createGetParameterDefinitionTask(design);
+			final var design = reportEngine.openReportDesign(is);
+			final var paramTask = reportEngine.createGetParameterDefinitionTask(design);
 			List<EngineException> errors = null;
 			try {
-				final IRunAndRenderTask rrTask = reportEngine
-						.createRunAndRenderTask(design);
+				final var rrTask = reportEngine.createRunAndRenderTask(design);
 				final Map<String, Object> appContext = rrTask.getAppContext();
-				final ClassLoader classLoader = /* getClass().getClassLoader() */ Thread.currentThread().getContextClassLoader();
-				System.out.println("DisplayParametersTest testExecute1 classLoader = " + classLoader);
-				appContext.put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY,
-						classLoader);
+				final var classLoader = /* getClass().getClassLoader() */ Thread.currentThread().getContextClassLoader();
+				System.out.println(
+					"DisplayParametersTest testExecute1 classLoader = " + classLoader);
+				appContext.put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, classLoader);
 				// rrTask.setAppContext(appContext);
 				try {
-					final ByteArrayOutputStream os = new ByteArrayOutputStream();
+					final var os = new ByteArrayOutputStream();
 					final RenderOption options = new HTMLRenderOption();
 					options.setOutputFormat("HTML");
 					options.setOutputStream(os);
 					rrTask.setRenderOption(options);
 					rrTask.run();
 					errors = rrTask.getErrors();
-					String output = os.toString("utf-8");
+					final var output = os.toString("utf-8");
 					System.out.println("DisplayParametersTest output = " + output);
-					Assert.assertTrue(
-							output.indexOf("Australian Collectors, Co.") >= 0);
+					Assert.assertTrue(output.indexOf("Australian Collectors, Co.") >= 0);
 					Assert.assertTrue(output.indexOf("NewParameter") >= 0);
 					Assert.assertTrue(output.indexOf("abc") >= 0);
 				}
@@ -97,18 +89,14 @@ public class DisplayParametersTest {
 				paramTask.close();
 			}
 			if (errors != null) {
-				Iterator<EngineException> iterator = errors.iterator();
+				final var iterator = errors.iterator();
 				if (iterator.hasNext()) {
-					EngineException error = iterator.next();
+					final var error = iterator.next();
 					Assert.fail("Engine exception: " + error.getMessage());
 				}
 			}
 		}
-		catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-			Assert.fail(e.toString());
-		}
-		catch (BirtException e) {
+		catch (final UnsupportedEncodingException | BirtException e) {
 			e.printStackTrace();
 			Assert.fail(e.toString());
 		}
