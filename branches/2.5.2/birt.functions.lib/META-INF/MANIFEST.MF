@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: birt.functions.lib;singleton:=true
-Bundle-Version: 2.6.1.13
+Bundle-Version: 4.14.1
 Bundle-Vendor: %Bundle-Vendor
 Require-Bundle: org.eclipse.birt.report.engine;bundle-version="2.3.2.0";resolution:=optional,
  org.eclipse.birt.data;bundle-version="2.3.2.0";resolution:=optional,

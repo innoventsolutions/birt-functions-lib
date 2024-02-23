@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Tests
 Bundle-SymbolicName: birt.functions.lib.tests
-Bundle-Version: 2.6.1.12
+Bundle-Version: 4.14.1
 Automatic-Module-Name: birt.functions.lib.tests
 Bundle-ClassPath: .,
  test-lib/byte-buddy-1.11.13.jar,

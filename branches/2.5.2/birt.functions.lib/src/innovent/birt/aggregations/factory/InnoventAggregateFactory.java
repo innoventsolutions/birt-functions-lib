@@ -14,9 +14,6 @@
  */
 package innovent.birt.aggregations.factory;
 
-import innovent.birt.aggregations.ConcatenateUnique;
-import innovent.birt.aggregations.CountUnique;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +22,11 @@ import java.util.logging.Logger;
 
 import org.eclipse.birt.data.engine.api.aggregation.IAggrFunction;
 import org.eclipse.birt.data.engine.api.aggregation.IAggregationFactory;
+
+import innovent.birt.aggregations.ConcatenateUnique;
+import innovent.birt.aggregations.CountUnique;
+import innovent.birt.aggregations.DecimalAve;
+import innovent.birt.aggregations.DecimalSum;
 
 /**
  * Create a list of all available aggregates and return to application
@@ -46,6 +48,12 @@ public class InnoventAggregateFactory implements IAggregationFactory {
 
 		final CountUnique countUnique = new CountUnique();
 		aggrMap.put(countUnique.getName().toUpperCase(), countUnique);
+		
+		final DecimalSum decimalSum = new DecimalSum();
+		aggrMap.put(decimalSum.getName().toUpperCase(), decimalSum);
+		
+		final DecimalAve decimalAve = new DecimalAve();
+		aggrMap.put(decimalAve.getName().toUpperCase(), decimalAve);
 	}
 
 	public InnoventAggregateFactory() {

@@ -4,11 +4,11 @@
   <groupId>birt.functions.lib.feature</groupId>
   <artifactId>birt.functions.lib.feature</artifactId>
   <packaging>eclipse-feature</packaging>
-  <version>2.6.1.12</version>
+  <version>4.14.1</version>
   <parent>
   	<groupId>com.innoventsolutions</groupId>
   	<artifactId>innoventsolutions.birt.releng</artifactId>
-  	<version>2.5.2.1</version>
+  	<version>4.14.1</version>
   	<relativePath>../../../../innoventsolutions.birt.releng</relativePath>
   </parent>
 </project>

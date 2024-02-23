@@ -10,9 +10,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "birt-4.12" ]
+    branches: [ "birt-4.14" ]
   pull_request:
-    branches: [ "birt-4.12" ]
+    branches: [ "birt-4.14" ]
 
 jobs:
   build:
