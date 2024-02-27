@@ -77,7 +77,7 @@ public class ConcatenateUnique implements IAggrFunction {
 
 	@Override
 	public String getDisplayName() {
-		return "Concatenate Unique";
+		return "Innovent Concatenate Unique";
 	}
 
 	@Override

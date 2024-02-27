@@ -4,4 +4,5 @@ if mvn clean install > install.log 2> install.err.log; then
     echo "success"
 else
     echo "failure"
+    exit 1
 fi

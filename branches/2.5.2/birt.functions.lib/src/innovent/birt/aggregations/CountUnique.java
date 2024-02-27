@@ -73,7 +73,7 @@ public class CountUnique implements IAggrFunction {
 
 	@Override
 	public String getDisplayName() {
-		return "Count Unique"; //$NON-NLS-1$
+		return "Innovent Count Unique"; //$NON-NLS-1$
 	}
 
 	@Override

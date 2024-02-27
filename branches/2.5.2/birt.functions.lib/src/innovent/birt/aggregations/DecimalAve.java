@@ -29,6 +29,16 @@ public class DecimalAve extends TotalAve {
 	}
 
 	@Override
+	public String getDisplayName() {
+		return "Innovent Decimal Average"; //$NON-NLS-1$
+	}
+
+	@Override
+	public String getDescription() {
+		return "Financial Average of Values";
+	}
+
+	@Override
 	public int getDataType() {
 		return DataType.DECIMAL_TYPE;
 	}
