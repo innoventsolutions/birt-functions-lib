@@ -15,28 +15,27 @@
 package innovent.birt.aggregations;
 
 import org.eclipse.birt.core.data.DataType;
-import org.eclipse.birt.data.aggregation.impl.TotalSum;
-import org.eclipse.birt.data.engine.api.aggregation.IAggrFunction;
+import org.eclipse.birt.data.aggregation.impl.rank.TotalPercentile;
 
 /**
  * Implements a decimal sum.
  *
  */
 @SuppressWarnings("restriction")
-public class DecimalSum extends TotalSum implements IAggrFunction {
+public class DecimalPercentile extends TotalPercentile {
 	@Override
 	public String getName() {
-		return "DECIMALSUM";
+		return "DECIMALPERCENTILE";
 	}
 
 	@Override
 	public String getDisplayName() {
-		return "Decimal Sum"; //$NON-NLS-1$
+		return "Decimal Percentile"; //$NON-NLS-1$
 	}
 
 	@Override
 	public String getDescription() {
-		return "Sum of Decimal Values";
+		return "Percentile of Decimal Values";
 	}
 
 	@Override

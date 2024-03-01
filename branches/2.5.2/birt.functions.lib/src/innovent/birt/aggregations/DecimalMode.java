@@ -15,28 +15,27 @@
 package innovent.birt.aggregations;
 
 import org.eclipse.birt.core.data.DataType;
-import org.eclipse.birt.data.aggregation.impl.TotalSum;
-import org.eclipse.birt.data.engine.api.aggregation.IAggrFunction;
+import org.eclipse.birt.data.aggregation.impl.TotalMode;
 
 /**
  * Implements a decimal sum.
  *
  */
 @SuppressWarnings("restriction")
-public class DecimalSum extends TotalSum implements IAggrFunction {
+public class DecimalMode extends TotalMode {
 	@Override
 	public String getName() {
-		return "DECIMALSUM";
+		return "DECIMALMODE";
 	}
 
 	@Override
 	public String getDisplayName() {
-		return "Decimal Sum"; //$NON-NLS-1$
+		return "Decimal Mode"; //$NON-NLS-1$
 	}
 
 	@Override
 	public String getDescription() {
-		return "Sum of Decimal Values";
+		return "Mode of Decimal Values";
 	}
 
 	@Override

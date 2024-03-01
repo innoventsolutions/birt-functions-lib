@@ -1,16 +1,16 @@
-/** 
+/**
  * Copyright (c) 2008-Present  Innovent Solutions, Inc.
- * 
- * All rights reserved. 
- * 
- * This program and the accompanying materials are made available under the terms 
- * of the Eclipse Public License v1.0 which accompanies this distribution, 
+ *
+ * All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the terms
+ * of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors: 
+ *
+ * Contributors:
  * 	Scott Rosenbaum - Innovent Solutions
  *  Steve Schafer - Innovent Solutions
- * 				 
+ *
  */
 package innovent.birt.aggregations.factory;
 
@@ -26,46 +26,61 @@ import org.eclipse.birt.data.engine.api.aggregation.IAggregationFactory;
 import innovent.birt.aggregations.ConcatenateUnique;
 import innovent.birt.aggregations.CountUnique;
 import innovent.birt.aggregations.DecimalAve;
+import innovent.birt.aggregations.DecimalFirst;
+import innovent.birt.aggregations.DecimalLast;
+import innovent.birt.aggregations.DecimalMax;
+import innovent.birt.aggregations.DecimalMedian;
+import innovent.birt.aggregations.DecimalMin;
+import innovent.birt.aggregations.DecimalMode;
+import innovent.birt.aggregations.DecimalMovingAve;
+import innovent.birt.aggregations.DecimalNpv;
+import innovent.birt.aggregations.DecimalPercentile;
+import innovent.birt.aggregations.DecimalQuartile;
 import innovent.birt.aggregations.DecimalSum;
 
 /**
  * Create a list of all available aggregates and return to application
- * 
+ *
  * @author Scott Rosenbaum
  *
  */
 public class InnoventAggregateFactory implements IAggregationFactory {
+	private final Map<String, IAggrFunction> aggrMap = new HashMap<>();
+	private static final Logger logger = Logger.getLogger(InnoventAggregateFactory.class.getName());
 
-	private Map<String, IAggrFunction> aggrMap = new HashMap<String, IAggrFunction>();
-	private static final Logger logger = Logger
-			.getLogger(InnoventAggregateFactory.class.getName());
+	private void populateAggregation(final IAggrFunction function) {
+		aggrMap.put(function.getName().toUpperCase(), function);
+	}
 
 	private void populateAggregations() {
-
-		final ConcatenateUnique concatenateUnique = new ConcatenateUnique();
-		aggrMap.put(concatenateUnique.getName().toUpperCase(),
-				concatenateUnique);
-
-		final CountUnique countUnique = new CountUnique();
-		aggrMap.put(countUnique.getName().toUpperCase(), countUnique);
-		
-		final DecimalSum decimalSum = new DecimalSum();
-		aggrMap.put(decimalSum.getName().toUpperCase(), decimalSum);
-		
-		final DecimalAve decimalAve = new DecimalAve();
-		aggrMap.put(decimalAve.getName().toUpperCase(), decimalAve);
+		populateAggregation(new ConcatenateUnique());
+		populateAggregation(new CountUnique());
+		populateAggregation(new DecimalAve());
+		populateAggregation(new DecimalFirst());
+		populateAggregation(new DecimalLast());
+		populateAggregation(new DecimalMax());
+		populateAggregation(new DecimalMedian());
+		populateAggregation(new DecimalMin());
+		populateAggregation(new DecimalMode());
+		populateAggregation(new DecimalMovingAve());
+		populateAggregation(new DecimalNpv());
+		populateAggregation(new DecimalPercentile());
+		populateAggregation(new DecimalQuartile());
+		populateAggregation(new DecimalSum());
 	}
 
 	public InnoventAggregateFactory() {
 		populateAggregations();
 	}
 
+	@Override
 	public List<IAggrFunction> getAggregations() {
-		return new ArrayList<IAggrFunction>(aggrMap.values());
+		return new ArrayList<>(aggrMap.values());
 	}
 
-	public IAggrFunction getAggregation(String name) {
-		IAggrFunction func = aggrMap.get(name.toUpperCase());
+	@Override
+	public IAggrFunction getAggregation(final String name) {
+		final var func = aggrMap.get(name.toUpperCase());
 		if (func == null) {
 			logger.warning(name + " is not a registered Aggregation");
 		}

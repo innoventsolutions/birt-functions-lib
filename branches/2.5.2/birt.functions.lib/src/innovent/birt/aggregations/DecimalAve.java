@@ -1,16 +1,16 @@
-/** 
+/**
  * Copyright (c) 2008-Present  Innovent Solutions, Inc.
- * 
- * All rights reserved. 
- * 
- * This program and the accompanying materials are made available under the terms 
- * of the Eclipse Public License v1.0 which accompanies this distribution, 
+ *
+ * All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the terms
+ * of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors: 
+ *
+ * Contributors:
  *  Scott Rosenbaum - Innovent Solutions
  *  Steve Schafer - Innovent Solutions
- * 				 
+ *
  */
 package innovent.birt.aggregations;
 
@@ -19,10 +19,10 @@ import org.eclipse.birt.data.aggregation.impl.TotalAve;
 
 /**
  * Implements a decimal sum.
- * 
+ *
  */
+@SuppressWarnings("restriction")
 public class DecimalAve extends TotalAve {
-
 	@Override
 	public String getName() {
 		return "DECIMALAVE";
@@ -30,12 +30,12 @@ public class DecimalAve extends TotalAve {
 
 	@Override
 	public String getDisplayName() {
-		return "Innovent Decimal Average"; //$NON-NLS-1$
+		return "Decimal Average"; //$NON-NLS-1$
 	}
 
 	@Override
 	public String getDescription() {
-		return "Financial Average of Values";
+		return "Average of Decimal Values";
 	}
 
 	@Override

@@ -15,28 +15,27 @@
 package innovent.birt.aggregations;
 
 import org.eclipse.birt.core.data.DataType;
-import org.eclipse.birt.data.aggregation.impl.TotalSum;
-import org.eclipse.birt.data.engine.api.aggregation.IAggrFunction;
+import org.eclipse.birt.data.aggregation.impl.TotalMedian;
 
 /**
  * Implements a decimal sum.
  *
  */
 @SuppressWarnings("restriction")
-public class DecimalSum extends TotalSum implements IAggrFunction {
+public class DecimalMedian extends TotalMedian {
 	@Override
 	public String getName() {
-		return "DECIMALSUM";
+		return "DECIMALMEDIAN";
 	}
 
 	@Override
 	public String getDisplayName() {
-		return "Decimal Sum"; //$NON-NLS-1$
+		return "Decimal Median"; //$NON-NLS-1$
 	}
 
 	@Override
 	public String getDescription() {
-		return "Sum of Decimal Values";
+		return "Median of Decimal Values";
 	}
 
 	@Override
