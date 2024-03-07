@@ -34,9 +34,13 @@ import innovent.birt.aggregations.DecimalMin;
 import innovent.birt.aggregations.DecimalMode;
 import innovent.birt.aggregations.DecimalMovingAve;
 import innovent.birt.aggregations.DecimalNpv;
+import innovent.birt.aggregations.DecimalPercentRank;
 import innovent.birt.aggregations.DecimalPercentile;
 import innovent.birt.aggregations.DecimalQuartile;
+import innovent.birt.aggregations.DecimalRunningSum;
 import innovent.birt.aggregations.DecimalSum;
+import innovent.birt.aggregations.DecimalVariance;
+import innovent.birt.aggregations.DecimalWeightedAve;
 
 /**
  * Create a list of all available aggregates and return to application
@@ -65,8 +69,12 @@ public class InnoventAggregateFactory implements IAggregationFactory {
 		populateAggregation(new DecimalMovingAve());
 		populateAggregation(new DecimalNpv());
 		populateAggregation(new DecimalPercentile());
+		populateAggregation(new DecimalPercentRank());
 		populateAggregation(new DecimalQuartile());
+		populateAggregation(new DecimalRunningSum());
 		populateAggregation(new DecimalSum());
+		populateAggregation(new DecimalVariance());
+		populateAggregation(new DecimalWeightedAve());
 	}
 
 	public InnoventAggregateFactory() {
