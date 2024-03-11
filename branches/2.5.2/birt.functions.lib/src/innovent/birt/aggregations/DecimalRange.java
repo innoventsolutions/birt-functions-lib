@@ -15,27 +15,28 @@
 package innovent.birt.aggregations;
 
 import org.eclipse.birt.core.data.DataType;
-import org.eclipse.birt.data.aggregation.impl.TotalNpv;
+import org.eclipse.birt.data.aggregation.impl.TotalRange;
+import org.eclipse.birt.data.engine.api.aggregation.IAggrFunction;
 
 /**
  * Implements a decimal sum.
  *
  */
 @SuppressWarnings("restriction")
-public class DecimalNpv extends TotalNpv {
+public class DecimalRange extends TotalRange implements IAggrFunction {
 	@Override
 	public String getName() {
-		return "DECIMALNPV";
+		return "DECIMALRANGE";
 	}
 
 	@Override
 	public String getDisplayName() {
-		return "Decimal NPV"; //$NON-NLS-1$
+		return "Decimal Range"; //$NON-NLS-1$
 	}
 
 	@Override
 	public String getDescription() {
-		return "Net Present Value of Decimal Values";
+		return "Range of Decimal Values";
 	}
 
 	@Override

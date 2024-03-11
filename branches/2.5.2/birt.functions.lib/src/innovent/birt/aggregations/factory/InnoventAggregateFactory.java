@@ -34,10 +34,12 @@ import innovent.birt.aggregations.DecimalMin;
 import innovent.birt.aggregations.DecimalMode;
 import innovent.birt.aggregations.DecimalMovingAve;
 import innovent.birt.aggregations.DecimalNpv;
-import innovent.birt.aggregations.DecimalPercentRank;
+import innovent.birt.aggregations.DecimalPercentSum;
 import innovent.birt.aggregations.DecimalPercentile;
 import innovent.birt.aggregations.DecimalQuartile;
+import innovent.birt.aggregations.DecimalRunningNpv;
 import innovent.birt.aggregations.DecimalRunningSum;
+import innovent.birt.aggregations.DecimalStdDev;
 import innovent.birt.aggregations.DecimalSum;
 import innovent.birt.aggregations.DecimalVariance;
 import innovent.birt.aggregations.DecimalWeightedAve;
@@ -60,18 +62,26 @@ public class InnoventAggregateFactory implements IAggregationFactory {
 		populateAggregation(new ConcatenateUnique());
 		populateAggregation(new CountUnique());
 		populateAggregation(new DecimalAve());
+		// dense rank returns an integer based on a list lookup using Object.equals - decimal version not needed
 		populateAggregation(new DecimalFirst());
+		// IRR already does most of it's calculations using BigDecimal if the input data is BigDecimal (because MathUtil is smart).  The return is a ranking value so it doesn't need to be a BigDecimal.
 		populateAggregation(new DecimalLast());
 		populateAggregation(new DecimalMax());
 		populateAggregation(new DecimalMedian());
 		populateAggregation(new DecimalMin());
+		// MIRR is similar to IRR. It doesn't need to be a BigDecimal.
 		populateAggregation(new DecimalMode());
 		populateAggregation(new DecimalMovingAve());
 		populateAggregation(new DecimalNpv());
 		populateAggregation(new DecimalPercentile());
-		populateAggregation(new DecimalPercentRank());
+		populateAggregation(new DecimalPercentSum());
+		// percentile rank returns a percentage based on position in sorted list - decimal version not needed
 		populateAggregation(new DecimalQuartile());
+		// rank returns an integer based on a list lookup using Object.equals - decimal version not needed
+		// running count is integer calc - decimal version not needed
+		populateAggregation(new DecimalRunningNpv());
 		populateAggregation(new DecimalRunningSum());
+		populateAggregation(new DecimalStdDev());
 		populateAggregation(new DecimalSum());
 		populateAggregation(new DecimalVariance());
 		populateAggregation(new DecimalWeightedAve());

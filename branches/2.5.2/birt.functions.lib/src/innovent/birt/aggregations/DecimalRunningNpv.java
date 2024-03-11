@@ -15,27 +15,27 @@
 package innovent.birt.aggregations;
 
 import org.eclipse.birt.core.data.DataType;
-import org.eclipse.birt.data.aggregation.impl.rank.TotalPercentRank;
+import org.eclipse.birt.data.aggregation.impl.TotalRunningNpv;
 
 /**
  * Implements a decimal sum.
  *
  */
 @SuppressWarnings("restriction")
-public class DecimalPercentRank extends TotalPercentRank {
+public class DecimalRunningNpv extends TotalRunningNpv {
 	@Override
 	public String getName() {
-		return "DECIMALPERCENTRANK";
+		return "DECIMALRUNNINGNPV";
 	}
 
 	@Override
 	public String getDisplayName() {
-		return "Decimal Percent Rank"; //$NON-NLS-1$
+		return "Decimal Running NPV"; //$NON-NLS-1$
 	}
 
 	@Override
 	public String getDescription() {
-		return "Percent Rank of Decimal Values";
+		return "Running Net Present Value of Decimal Values";
 	}
 
 	@Override
