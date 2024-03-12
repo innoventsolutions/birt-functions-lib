@@ -23,13 +23,15 @@ Script functions can be called anywhere that a user adds Birt Script.  This incl
 Extension functions are grouped by category, with the category showing up under BIRT Functions.  For this project the new group is named Custom Functions.  
 
 While on a script page, the expressions will show up on the palette tab (as shown to the left).  In the expression builder, custom functions show up in the lower left panel of the expression builder. 
-=== AppendLibraryContent === 
-=== BindParameters === 
-=== BirtLogger === 
-=== DisplayParameters === 
-=== SetChartPalette === 
-=== TextWrap === 
-=== ThrowException === 
+<ul>
+<li>AppendLibraryContent</li>
+<li>BindParameters</li>
+<li>BirtLogger</li>
+<li>DisplayParameters</li>
+<li>SetChartPalette</li>
+<li>TextWrap</li>
+<li>ThrowException</li>
+</ul>
 </td><td  width="50%">
 http://svn.codespot.com/a/eclipselabs.org/birt-functions-lib/wiki/functions.attach/CustomFunctions.png
 </td>
