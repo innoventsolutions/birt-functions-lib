@@ -65,6 +65,7 @@ public class InnoventAggregateFactory implements IAggregationFactory {
 		// dense rank returns an integer based on a list lookup using Object.equals - decimal version not needed
 		populateAggregation(new DecimalFirst());
 		// IRR already does most of it's calculations using BigDecimal if the input data is BigDecimal (because MathUtil is smart).  The return is a ranking value so it doesn't need to be a BigDecimal.
+		// IS-[TOP/BOTTOM]-N[-PERCENT] return booleans and do not involve decimal sensitive calculations.
 		populateAggregation(new DecimalLast());
 		populateAggregation(new DecimalMax());
 		populateAggregation(new DecimalMedian());
