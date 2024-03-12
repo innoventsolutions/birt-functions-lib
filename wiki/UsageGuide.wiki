@@ -8,8 +8,11 @@ There are two types of extensions in this project, Aggregates and Script Functio
 Aggregate functions are performed across a collection of rows.  
 Aggregate extensions show up in the Aggregate Builder and behave like the built-in BIRT Aggregates (e.g. Count, Sum...)  
 Custom aggregates support all of the grouping and filtering options that the standard aggregates support.
-=== ConcatenateUnique ===
-=== CountUnique ===
+<ul>
+<li>ConcatenateUnique</li>
+<li>CountUnique</li>
+<li>Decimal aggregators</li>
+</ul>
 </td>
 <td width="50%">http://svn.codespot.com/a/eclipselabs.org/birt-functions-lib/wiki/functions.attach/AggregationBuilder.png</td>
 </tr><tr>
