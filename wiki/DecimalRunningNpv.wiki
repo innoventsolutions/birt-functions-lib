@@ -1,0 +1,10 @@
+#sidebar sidebar
+
+Returns the running NPV (net present value) of a given field, using decimal calculations.
+The first parameter is the field that holds the values you wish to use.
+The second parameter is the rate.
+This is a running aggregation, which means you should use it on the same grouping level as the field specified, usually detail.
+It will change the return data type to DECIMAL.
+
+This function is an alternative for the built-in QUARTILE aggregation.  
+It will avoid minutae that sometimes occur in floating point calculations.

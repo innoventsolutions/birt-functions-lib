@@ -1,0 +1,9 @@
+#sidebar sidebar
+
+Returns the weighted average of a given field, using decimal calculations.
+The first parameter is the field that holds the values you wish to use.
+The second parameter is the weight.
+It will change the return data type to DECIMAL.
+
+This function is an alternative for the built-in WEIGHTEDAVE aggregation.  
+It will avoid minutae that sometimes occur in floating point calculations.

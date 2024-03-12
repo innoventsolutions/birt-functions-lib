@@ -8,10 +8,15 @@ There are two types of extensions in this project, Aggregates and Script Functio
 Aggregate functions are performed across a collection of rows.  
 Aggregate extensions show up in the Aggregate Builder and behave like the built-in BIRT Aggregates (e.g. Count, Sum...)  
 Custom aggregates support all of the grouping and filtering options that the standard aggregates support.
-=== ConcatenateUnique ===
-=== CountUnique ===
+<ul>
+<li>ConcatenateUnique</li>
+<li>CountUnique</li>
+<li>Decimal aggregators</li>
+</ul>
 </td>
-<td width="50%">http://svn.codespot.com/a/eclipselabs.org/birt-functions-lib/wiki/functions.attach/AggregationBuilder.png</td>
+<td width="50%">
+http://innoventsolutions.github.io/images/birt-functions-lib/AggregationBuilder.png
+</td>
 </tr><tr>
 <tr height="20px"><td></td></tr>
 <td valign="top" width="50%">
@@ -20,15 +25,16 @@ Script functions can be called anywhere that a user adds Birt Script.  This incl
 Extension functions are grouped by category, with the category showing up under BIRT Functions.  For this project the new group is named Custom Functions.  
 
 While on a script page, the expressions will show up on the palette tab (as shown to the left).  In the expression builder, custom functions show up in the lower left panel of the expression builder. 
-=== AppendLibraryContent === 
-=== BindParameters === 
-=== BirtLogger === 
-=== DisplayParameters === 
-=== SetChartPalette === 
-=== TextWrap === 
-=== ThrowException === 
+<li>AppendLibraryContent</li> 
+<li>BindParameters</li> 
+<li>BirtLogger</li> 
+<li>DisplayParameters</li> 
+<li>SetChartPalette</li> 
+<li>TextWrap</li> 
+<li>ThrowException</li>
+</ul> 
 </td><td  width="50%">
-http://svn.codespot.com/a/eclipselabs.org/birt-functions-lib/wiki/functions.attach/CustomFunctions.png
+http://innoventsolutions.github.io/images/birt-functions-lib/CustomFunctions.png
 </td>
 </tr>
 </table>

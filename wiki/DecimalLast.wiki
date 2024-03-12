@@ -1,0 +1,7 @@
+#sidebar sidebar
+
+Returns the last value of a given field.  
+The only passed value is the field that holds the last value you wish to return.  
+
+This function is an alternative for the built-in LAST aggregation.  
+The only difference is that it will change the return data type to DECIMAL.

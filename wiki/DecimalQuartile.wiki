@@ -1,0 +1,9 @@
+#sidebar sidebar
+
+Returns the quartile of a given field, using decimal calculations.
+The first parameter is the field that holds the values you wish to use.
+The second parameter is the quartile number (0-4).
+It will change the return data type to DECIMAL.
+
+This function is an alternative for the built-in QUARTILE aggregation.  
+It will avoid minutae that sometimes occur in floating point calculations.

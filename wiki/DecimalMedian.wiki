@@ -1,0 +1,7 @@
+#sidebar sidebar
+
+Returns the median value of a given field using decimal comparisons.  
+The only passed value is the field that holds the median value you wish to return.  
+
+This function is an alternative for the built-in MEDIAN aggregation.  
+It will change the return data type to DECIMAL.

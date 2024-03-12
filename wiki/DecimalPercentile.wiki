@@ -1,0 +1,8 @@
+#sidebar sidebar
+
+Returns the percentile of a given field, using decimal calculations.
+The only passed value is the field that holds the values you wish to use.
+It will change the return data type to DECIMAL.
+
+This function is an alternative for the built-in PERCENTILE aggregation.  
+It will avoid minutae that sometimes occur in floating point calculations.
