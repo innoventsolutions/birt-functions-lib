@@ -18,7 +18,7 @@ public class DecimalRunningSumTest {
 		Assert.assertEquals(DataType.DECIMAL_TYPE, fn.getDataType());
 		final var parameterDefns = fn.getParameterDefn();
 		Assert.assertNotNull(parameterDefns);
-		Assert.assertEquals(parameterDefns.length, 1);
+		Assert.assertEquals(1, parameterDefns.length);
 		final var accumulator = fn.newAccumulator();
 		Assert.assertNotNull(accumulator);
 		return accumulator;
