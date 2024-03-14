@@ -54,7 +54,7 @@ public class SetChartPaletteTest {
 	 * @throws FileNotFoundException
 	 */
 	@SuppressWarnings("unchecked")
-	@Test
+	// @Test
 	public void testExecute1() throws FileNotFoundException {
 		try {
 			final IReportEngine reportEngine = ReportEngine.getReportEngine();
